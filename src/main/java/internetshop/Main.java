@@ -44,13 +44,13 @@ public class Main {
         userService.create(testUser);
 
         //3. Add item into user's bucket
-        Bucket usersBucket = new Bucket(testUserId);
-        bucketService.create(usersBucket);
-        bucketService.addItem(usersBucket.getId(), firstItem.getId());
+        Bucket userBucket = new Bucket(testUserId);
+        bucketService.create(userBucket);
+        bucketService.addItem(userBucket.getId(), firstItem.getId());
 
         //4. User wants to create Order from bucket
-        orderService.completeOrder(usersBucket);
-        bucketService.delete(usersBucket);
+        orderService.completeOrder(userBucket);
+        bucketService.delete(userBucket);
 
         //5. User wants to see purchase history
         userService.get(testUserId).getPurchaseHistory().forEach(System.out::println);

@@ -1,36 +1,36 @@
 package internetshop;
 
 public class Generator {
-    private static Long itemId;
-    private static Long userId;
-    private static Long bucketId;
-    private static Long orderId;
+    private static Long genItemId;
+    private static Long genUserId;
+    private static Long genBucketId;
+    private static Long genOrderId;
 
     public static Long genItemId() {
-        if (itemId == null) {
-            itemId = 0L;
+        if (genItemId == null) {
+            genItemId = 0L;
         }
-        return itemId++;
+        return genItemId++;
     }
 
     public static Long genUserId() {
-        if (userId == null) {
-            userId = 0L;
+        if (genUserId == null) {
+            genUserId = 0L;
         }
-        return userId++;
+        return genUserId++;
     }
 
     public static Long genBucketId() {
-        if (bucketId == null) {
-            bucketId = 0L;
+        if (genBucketId == null) {
+            genBucketId = 0L;
         }
-        return bucketId++;
+        return genBucketId++;
     }
 
     public static Long genOrderId() {
-        if (orderId == null) {
-            orderId = 0L;
+        if (genOrderId == null) {
+            genOrderId = 0L;
         }
-        return orderId++;
+        return genOrderId++;
     }
 }
