@@ -13,15 +13,6 @@ import internetshop.service.UserService;
 
 @Service
 public class Main {
-    static {
-        try {
-            Injector.injectDependencies();
-        } catch (IllegalAccessException e) {
-            e.getMessage();
-            e.printStackTrace();
-        }
-    }
-
     @Inject
     private static ItemService itemService;
     @Inject
@@ -30,6 +21,15 @@ public class Main {
     private static OrderService orderService;
     @Inject
     private static UserService userService;
+
+    static {
+        try {
+            Injector.injectDependencies();
+        } catch (IllegalAccessException e) {
+            e.getMessage();
+            e.printStackTrace();
+        }
+    }
 
     public static void main(String[] args) {
         //1. Create some items
