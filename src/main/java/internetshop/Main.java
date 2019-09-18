@@ -20,7 +20,7 @@ public class Main {
     @Inject
     private static OrderService orderService;
     @Inject
-    private static UserService userService;
+    public static UserService userService;
 
     static {
         try {

@@ -6,6 +6,8 @@ import internetshop.dao.ItemDao;
 import internetshop.model.Item;
 import internetshop.service.ItemService;
 
+import java.util.List;
+
 @Service
 public class ItemServiceImpl implements ItemService {
     @Inject
@@ -19,6 +21,11 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public Item get(Long id) {
         return itemDao.get(id);
+    }
+
+    @Override
+    public List<Item> getAll() {
+        return itemDao.getAll();
     }
 
     @Override

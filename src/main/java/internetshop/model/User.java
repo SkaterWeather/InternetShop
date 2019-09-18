@@ -20,12 +20,17 @@ public class User {
         this.purchaseHistory = new ArrayList<>();
     }
 
-    public Long getId() {
-        return id;
+    public User(String login, String password, String name, String surname) {
+        this.id = Generator.genUserId();
+        this.name = name;
+        this.surname = surname;
+        this.login = login;
+        this.password = password;
+        this.purchaseHistory = new ArrayList<>();
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public Long getId() {
+        return id;
     }
 
     public String getName() {
@@ -66,5 +71,14 @@ public class User {
 
     public void addToPurchaseHistory(Order order) {
         this.purchaseHistory.add(order);
+    }
+
+    public void deleteFromPurchaseHistory(Long orderId) {
+        this.purchaseHistory.removeIf(s -> s.getId().equals(orderId));
+    }
+
+    @Override
+    public String toString() {
+        return name + "_" + surname;
     }
 }
