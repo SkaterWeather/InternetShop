@@ -27,7 +27,6 @@ public class DataInitializer implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
-        // Create some items
         Item firstItem = new Item("firstItem", 9.54);
         Item secondItem = new Item("secondItem", 3.48);
         Item thirdItem = new Item("thirdItem", 10.00);
@@ -35,22 +34,18 @@ public class DataInitializer implements ServletContextListener {
         itemService.create(secondItem);
         itemService.create(thirdItem);
 
-        // Create def user
         User defUser = new User("@login",
                 "1111",
                 "Berry",
                 "Garrett");
         userService.create(defUser);
 
-        // Create bucket (default bucket)
         Bucket defBucket = new Bucket(DEFAULT_USER_ID);
         bucketService.create(defBucket);
 
-        // def User want to add items to bucket
         bucketService.addItem(defBucket.getId(), firstItem.getId());
         bucketService.addItem(defBucket.getId(), secondItem.getId());
 
-        //def User wants to create Order from bucket
         orderService.completeOrder(defBucket);
 
         System.out.println("All test data injected");
