@@ -1,60 +1,77 @@
 package internetshop.annotation;
 
-import internetshop.Factory;
-import internetshop.Main;
-import internetshop.dao.BucketDao;
-import internetshop.dao.ItemDao;
-import internetshop.dao.OrderDao;
-import internetshop.dao.UserDao;
-import internetshop.service.BucketService;
-import internetshop.service.ItemService;
-import internetshop.service.OrderService;
-import internetshop.service.UserService;
-import internetshop.service.impl.BucketServiceImpl;
-import internetshop.service.impl.ItemServiceImpl;
-import internetshop.service.impl.OrderServiceImpl;
-import internetshop.service.impl.UserServiceImpl;
-
+import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Field;
+import java.net.URL;
 import java.util.ArrayList;
-import java.util.Hashtable;
+import java.util.Enumeration;
 import java.util.List;
-import java.util.Map;
 
 public class Injector {
-    private static List<Class> services = new ArrayList<>();
-    private static Map<Class, Object> objectsToInject = new Hashtable<>();
+    private static final String PROJECT_MAIN_PACKAGE = "internetshop";
+    private static List<Class> classes = new ArrayList<>();
 
     static {
-        services.add(Main.class);
-        services.add(ItemServiceImpl.class);
-        services.add(BucketServiceImpl.class);
-        services.add(OrderServiceImpl.class);
-        services.add(UserServiceImpl.class);
-        objectsToInject.put(ItemService.class, Factory.getItemService());
-        objectsToInject.put(BucketService.class, Factory.getBucketService());
-        objectsToInject.put(OrderService.class, Factory.getOrderService());
-        objectsToInject.put(UserService.class, Factory.getUserService());
-        objectsToInject.put(ItemDao.class, Factory.getItemDao());
-        objectsToInject.put(BucketDao.class, Factory.getBucketDao());
-        objectsToInject.put(OrderDao.class, Factory.getOrderDao());
-        objectsToInject.put(UserDao.class, Factory.getUserDao());
+        try {
+            classes.addAll(getClasses(PROJECT_MAIN_PACKAGE));
+        } catch (ClassNotFoundException | IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void injectDependencies() throws IllegalAccessException {
-        for (Class currentServiceClass : services) {
-            for (Field field : currentServiceClass.getDeclaredFields()) {
-
-                if (field.getDeclaredAnnotation(Inject.class) != null
-                        && objectsToInject.containsKey(field.getType())
-                        && (objectsToInject.get(field.getType()).getClass()
-                        .getDeclaredAnnotation(Service.class) != null
-                        || objectsToInject.get(field.getType()).getClass()
-                        .getDeclaredAnnotation(Dao.class) != null)) {
-                    field.setAccessible(true);
-                    field.set(null, objectsToInject.get(field.getType()));
+        for (Class currentClass : classes) {
+            for (Field field : currentClass.getDeclaredFields()) {
+                if (field.getDeclaredAnnotation(Inject.class) != null) {
+                    Object implementation = InjectorHelper.getFactoryImpl(field.getType());
+                    if (implementation.getClass().getDeclaredAnnotation(Service.class) != null
+                            || implementation.getClass().getDeclaredAnnotation(Dao.class) != null) {
+                        field.setAccessible(true);
+                        field.set(null, implementation);
+                    }
                 }
             }
         }
+    }
+
+    private static List<Class> getClasses(String packageName)
+            throws ClassNotFoundException, IOException {
+        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+        assert classLoader != null;
+        String path = packageName.replace('.', '/');
+        Enumeration<URL> resources = classLoader.getResources(path);
+        List<File> dirs = new ArrayList<File>();
+        while (resources.hasMoreElements()) {
+            URL resource = resources.nextElement();
+            dirs.add(new File(resource.getFile()));
+        }
+        ArrayList<Class> classes = new ArrayList<Class>();
+        for (File directory : dirs) {
+            classes.addAll(findClasses(directory, packageName));
+        }
+        return classes;
+    }
+
+    private static List<Class> findClasses(File directory, String packageName)
+            throws ClassNotFoundException {
+        List<Class> classes = new ArrayList<Class>();
+        if (!directory.exists()) {
+            return classes;
+        }
+        File[] files = directory.listFiles();
+        if (files != null) {
+            for (File file : files) {
+                if (file.isDirectory()) {
+                    assert !file.getName().contains(".");
+                    classes.addAll(findClasses(file, packageName + "." + file.getName()));
+                } else if (file.getName().endsWith(".class")) {
+                    String className = packageName + '.'
+                            + file.getName().substring(0, file.getName().length() - 6);
+                    classes.add(Class.forName(className));
+                }
+            }
+        }
+        return classes;
     }
 }

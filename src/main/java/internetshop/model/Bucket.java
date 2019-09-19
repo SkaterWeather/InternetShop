@@ -16,6 +16,10 @@ public class Bucket {
         this.items = new ArrayList<>();
     }
 
+    public void deleteItem(Long itemId) {
+        this.items.removeIf(s -> s.getId().equals(itemId));
+    }
+
     public void clearItems() {
         items.clear();
     }

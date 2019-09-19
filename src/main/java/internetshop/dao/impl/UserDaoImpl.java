@@ -5,6 +5,7 @@ import internetshop.dao.ImagineDateBase;
 import internetshop.dao.UserDao;
 import internetshop.model.User;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @Dao
@@ -22,6 +23,11 @@ public class UserDaoImpl implements UserDao {
                 .filter(s -> s.getId().equals(id))
                 .findFirst()
                 .orElseThrow(NoSuchElementException::new);
+    }
+
+    @Override
+    public List<User> getAll() {
+        return ImagineDateBase.usersList;
     }
 
     @Override
