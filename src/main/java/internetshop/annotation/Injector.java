@@ -1,5 +1,8 @@
 package internetshop.annotation;
 
+import internetshop.controller.IndexController;
+import org.apache.log4j.Logger;
+
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;
@@ -9,6 +12,7 @@ import java.util.Enumeration;
 import java.util.List;
 
 public class Injector {
+    private static final Logger logger = Logger.getLogger(Injector.class);
     private static final String PROJECT_MAIN_PACKAGE = "internetshop";
     private static List<Class> classes = new ArrayList<>();
 
@@ -16,7 +20,7 @@ public class Injector {
         try {
             classes.addAll(getClasses(PROJECT_MAIN_PACKAGE));
         } catch (ClassNotFoundException | IOException e) {
-            e.printStackTrace();
+            logger.error("Error trying to get all classes from internetshop package.");
         }
     }
 
