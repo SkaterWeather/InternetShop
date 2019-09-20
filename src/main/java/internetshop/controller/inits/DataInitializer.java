@@ -8,11 +8,13 @@ import internetshop.service.BucketService;
 import internetshop.service.ItemService;
 import internetshop.service.OrderService;
 import internetshop.service.UserService;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
 public class DataInitializer implements ServletContextListener {
+    private static final Logger logger = Logger.getLogger(DataInitializer.class);
     @Inject
     private static ItemService itemService;
     @Inject
@@ -48,7 +50,7 @@ public class DataInitializer implements ServletContextListener {
 
         orderService.completeOrder(defBucket);
 
-        System.out.println("All test data injected");
+        logger.info("All test data injected");
     }
 
     @Override

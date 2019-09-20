@@ -3,6 +3,7 @@ package internetshop.controller;
 import internetshop.annotation.Inject;
 import internetshop.model.User;
 import internetshop.service.UserService;
+import org.apache.log4j.Logger;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class RegistrationUserController extends HttpServlet {
+    private static final Logger logger = Logger.getLogger(RegistrationUserController.class);
     @Inject
     private static UserService userService;
 
@@ -28,7 +30,7 @@ public class RegistrationUserController extends HttpServlet {
                 req.getParameter("name"),
                 req.getParameter("surname"));
         userService.create(newUser);
-        System.out.println("User added: " + newUser);
+        logger.info("User added: " + newUser);
         resp.sendRedirect(req.getContextPath() + "/users");
     }
 }
