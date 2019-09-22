@@ -4,9 +4,11 @@ import internetshop.Generator;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class User {
     private Long id;
+    private String token;
     private String name;
     private String surname;
     private String login;
@@ -17,6 +19,7 @@ public class User {
         this.id = Generator.genUserId();
         this.login = login;
         this.password = password;
+        this.token = generateToken();
         this.purchaseHistory = new ArrayList<>();
     }
 
@@ -26,11 +29,20 @@ public class User {
         this.surname = surname;
         this.login = login;
         this.password = password;
+        this.token = generateToken();
         this.purchaseHistory = new ArrayList<>();
     }
 
     public Long getId() {
         return id;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    private String generateToken() {
+        return UUID.randomUUID().toString();
     }
 
     public String getName() {

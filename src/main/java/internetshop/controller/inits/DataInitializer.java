@@ -24,9 +24,6 @@ public class DataInitializer implements ServletContextListener {
     @Inject
     private static UserService userService;
 
-    public static final Long DEFAULT_BUCKET_ID = 0L;
-    public static final Long DEFAULT_USER_ID = 0L;
-
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
         Item firstItem = new Item("firstItem", 9.54);
@@ -42,7 +39,7 @@ public class DataInitializer implements ServletContextListener {
                 "Garrett");
         userService.create(defUser);
 
-        Bucket defBucket = new Bucket(DEFAULT_USER_ID);
+        Bucket defBucket = new Bucket(defUser.getId());
         bucketService.create(defBucket);
 
         bucketService.addItem(defBucket.getId(), firstItem.getId());

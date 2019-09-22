@@ -6,7 +6,9 @@ import internetshop.dao.UserDao;
 import internetshop.model.User;
 import internetshop.service.UserService;
 
+import javax.naming.AuthenticationException;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -26,6 +28,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public User create(User user) {
         return userDao.create(user);
+    }
+
+    @Override
+    public User login(String login, String password) throws AuthenticationException {
+         return userDao.login(login, password);
     }
 
     @Override

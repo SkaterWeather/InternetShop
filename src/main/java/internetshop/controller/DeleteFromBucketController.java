@@ -17,9 +17,9 @@ public class DeleteFromBucketController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        //TODO: get bucket id from current user;
+        Long userId = (Long) req.getSession(true).getAttribute("userId");
         String itemId = req.getParameter("item_id");
-        bucketService.get(DataInitializer.DEFAULT_BUCKET_ID).deleteItem(Long.valueOf(itemId));
+        bucketService.get(bucketService.getByUserId(userId).getId()).deleteItem(Long.valueOf(itemId));
         resp.sendRedirect(req.getContextPath() + "/bucket");
     }
 }
