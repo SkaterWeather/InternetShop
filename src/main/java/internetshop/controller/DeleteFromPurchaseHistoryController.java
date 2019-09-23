@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class DeleteFromPurchaseHistoryController extends HttpServlet {
-    private static final Logger logger = Logger.getLogger(RegistrationUserController.class);
+    private static final Logger logger = Logger.getLogger(DeleteFromPurchaseHistoryController.class);
     @Inject
     private static UserService userService;
 

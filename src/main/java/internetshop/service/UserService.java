@@ -5,6 +5,7 @@ import internetshop.model.User;
 
 import javax.naming.AuthenticationException;
 import java.util.List;
+import java.util.Optional;
 
 public interface UserService {
     List<User> getAll();
@@ -16,6 +17,8 @@ public interface UserService {
     User create(User user);
 
     User get(Long id);
+
+    Optional<User> getByToken(String token);
 
     User update(User user);
 

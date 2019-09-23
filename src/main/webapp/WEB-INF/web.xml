@@ -111,6 +111,23 @@
         <servlet-name>login</servlet-name>
         <url-pattern>/login</url-pattern>
     </servlet-mapping>
+
+    <filter>
+        <filter-name>authentication-filter</filter-name>
+        <filter-class>internetshop.controller.filter.AuthenticationFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>authentication-filter</filter-name>
+        <url-pattern>/users</url-pattern>
+        <url-pattern>/items</url-pattern>
+        <url-pattern>/order</url-pattern>
+        <url-pattern>/bucket</url-pattern>
+        <url-pattern>/add-to-bucket</url-pattern>
+        <url-pattern>/delete-from-bucket</url-pattern>
+        <url-pattern>/delete-user</url-pattern>
+        <url-pattern>/delete-from-purchase-history</url-pattern>
+        <url-pattern>/purchase-history</url-pattern>
+    </filter-mapping>
     
     <listener>
         <listener-class>internetshop.controller.inits.InjectInitializer</listener-class>

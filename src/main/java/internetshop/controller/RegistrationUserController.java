@@ -37,6 +37,6 @@ public class RegistrationUserController extends HttpServlet {
         logger.info("User added: " + newUser);
         bucketService.create(new Bucket(newUser.getId()));
         logger.info("Created empty user bucket");
-        resp.sendRedirect(req.getContextPath() + "/users");
+        resp.sendRedirect(req.getContextPath() + "/index");
     }
 }

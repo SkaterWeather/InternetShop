@@ -7,11 +7,15 @@ import org.apache.log4j.Logger;
 
 import javax.naming.AuthenticationException;
 import javax.servlet.ServletException;
-import javax.servlet.http.*;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 public class LoginController extends HttpServlet {
-    private static final Logger logger = Logger.getLogger(RegistrationUserController.class);
+    private static final Logger logger = Logger.getLogger(LoginController.class);
     @Inject
     private static UserService userService;
 

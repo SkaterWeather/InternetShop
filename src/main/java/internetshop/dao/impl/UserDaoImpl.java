@@ -39,6 +39,13 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    public Optional<User> getByToken(String token) {
+        return ImagineDateBase.usersList.stream()
+                .filter(s -> s.getToken().equals(token))
+                .findFirst();
+    }
+
+    @Override
     public List<User> getAll() {
         return ImagineDateBase.usersList;
     }
