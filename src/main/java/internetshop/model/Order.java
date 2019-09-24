@@ -2,6 +2,7 @@ package internetshop.model;
 
 import internetshop.Generator;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Order {
@@ -13,7 +14,7 @@ public class Order {
     public Order(Long userId, List<Item> items) {
         this.id = Generator.genOrderId();
         this.userId = userId;
-        this.itemsList = items;
+        this.itemsList = new ArrayList<>(items);
         calculateTotalPrice();
     }
 

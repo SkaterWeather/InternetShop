@@ -25,14 +25,6 @@ public class BucketDaoImpl implements BucketDao {
     }
 
     @Override
-    public Bucket getByUserId(Long userId) {
-        return ImagineDateBase.bucketsList.stream()
-                .filter(s -> s.getUserId().equals(userId))
-                .findFirst()
-                .orElseThrow(NoSuchElementException::new);
-    }
-
-    @Override
     public Bucket update(Bucket bucket) {
         int index = ImagineDateBase.bucketsList.indexOf(bucket);
         ImagineDateBase.bucketsList.set(index, bucket);

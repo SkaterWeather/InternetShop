@@ -29,14 +29,17 @@ public class RegistrationUserController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
+        Bucket newBucket = new Bucket();
+        bucketService.create(newBucket);
+        logger.info("Created empty user bucket");
         User newUser = new User(req.getParameter("login"),
                 req.getParameter("password"),
                 req.getParameter("name"),
-                req.getParameter("surname"));
+                req.getParameter("surname"),
+                newBucket.getId());
         userService.create(newUser);
         logger.info("User added: " + newUser);
-        bucketService.create(new Bucket(newUser.getId()));
-        logger.info("Created empty user bucket");
+
         resp.sendRedirect(req.getContextPath() + "/index");
     }
 }

@@ -1,8 +1,6 @@
 package internetshop.controller;
 
 import internetshop.annotation.Inject;
-import internetshop.controller.inits.DataInitializer;
-import internetshop.model.User;
 import internetshop.service.UserService;
 import org.apache.log4j.Logger;
 
@@ -23,7 +21,8 @@ public class DeleteFromPurchaseHistoryController extends HttpServlet {
         Long userId = (Long) req.getSession(true).getAttribute("userId");
         String orderId = req.getParameter("order_id");
         userService.get(userId).deleteFromPurchaseHistory(Long.valueOf(orderId));
-        resp.sendRedirect(req.getContextPath() + "/purchase-history");
         logger.info("Order[" + orderId + "] deleted, userId = " + userId);
+        //TODO: trying to redirect on index page '/purchase-history'
+        resp.sendRedirect(req.getContextPath() + "/index");
     }
 }

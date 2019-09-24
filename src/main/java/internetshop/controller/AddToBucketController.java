@@ -23,7 +23,7 @@ public class AddToBucketController extends HttpServlet {
             throws ServletException, IOException {
         Long userId = (Long) req.getSession(true).getAttribute("userId");
         String itemId = req.getParameter("item_id");
-        bucketService.addItem(bucketService.getByUserId(userId).getId(), Long.valueOf(itemId));
+        bucketService.addItem(userService.get(userId).getBucketId(), Long.valueOf(itemId));
         resp.sendRedirect(req.getContextPath() + "/items");
     }
 }
