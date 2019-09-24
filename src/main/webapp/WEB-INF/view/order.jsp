@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: Max
@@ -11,7 +12,14 @@
     <title>Order</title>
 </head>
 <body>
-    Here's the page to make order from bucket,
-    but it wasn't in Task16, so it'll be implemented in next version;
+    Congratulations! You have ordered a purchase.
+    <div>
+        <div>
+            <a href = "<c:url value = "/index"/>">Return to Index page</a>
+        </div>
+        <div>
+            <a href = "<c:url value = "/purchase-history"/>">View my purchase history</a>
+        </div>
+    </div>
 </body>
 </html>

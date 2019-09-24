@@ -18,8 +18,9 @@ public class GetPurchaseHistoryController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        String userId = req.getParameter("user_id");
-        List<Order> history = userService.get(Long.valueOf(userId)).getPurchaseHistory();
+        //TODO: delete
+        Long userId = (Long) req.getSession(true).getAttribute("userId");
+        List<Order> history = userService.get(userId).getPurchaseHistory();
         req.setAttribute("history", history);
         req.getRequestDispatcher("WEB-INF/view/purchase-history.jsp").forward(req, resp);
     }

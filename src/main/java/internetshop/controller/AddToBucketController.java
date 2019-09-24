@@ -2,7 +2,9 @@ package internetshop.controller;
 
 import internetshop.annotation.Inject;
 import internetshop.controller.inits.DataInitializer;
+import internetshop.model.User;
 import internetshop.service.BucketService;
+import internetshop.service.UserService;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -13,13 +15,15 @@ import javax.servlet.http.HttpServletResponse;
 public class AddToBucketController extends HttpServlet {
     @Inject
     private static BucketService bucketService;
+    @Inject
+    private static UserService userService;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        //TODO: get bucket id from current user; from page items.jsp
+        Long userId = (Long) req.getSession(true).getAttribute("userId");
         String itemId = req.getParameter("item_id");
-        bucketService.addItem(DataInitializer.DEFAULT_BUCKET_ID, Long.valueOf(itemId));
+        bucketService.addItem(userService.get(userId).getBucketId(), Long.valueOf(itemId));
         resp.sendRedirect(req.getContextPath() + "/items");
     }
 }

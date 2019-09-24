@@ -1,5 +1,7 @@
 package internetshop;
 
+import java.util.UUID;
+
 public class Generator {
     private static Long genItemId;
     private static Long genUserId;
@@ -32,5 +34,9 @@ public class Generator {
             genOrderId = 0L;
         }
         return genOrderId++;
+    }
+
+    public static String genUserToken() {
+        return UUID.randomUUID().toString();
     }
 }

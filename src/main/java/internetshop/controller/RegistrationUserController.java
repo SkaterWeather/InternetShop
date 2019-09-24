@@ -1,7 +1,9 @@
 package internetshop.controller;
 
 import internetshop.annotation.Inject;
+import internetshop.model.Bucket;
 import internetshop.model.User;
+import internetshop.service.BucketService;
 import internetshop.service.UserService;
 import org.apache.log4j.Logger;
 
@@ -15,6 +17,8 @@ public class RegistrationUserController extends HttpServlet {
     private static final Logger logger = Logger.getLogger(RegistrationUserController.class);
     @Inject
     private static UserService userService;
+    @Inject
+    private static BucketService bucketService;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -25,12 +29,17 @@ public class RegistrationUserController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
+        Bucket newBucket = new Bucket();
+        bucketService.create(newBucket);
+        logger.info("Created empty user bucket");
         User newUser = new User(req.getParameter("login"),
                 req.getParameter("password"),
                 req.getParameter("name"),
-                req.getParameter("surname"));
+                req.getParameter("surname"),
+                newBucket.getId());
         userService.create(newUser);
         logger.info("User added: " + newUser);
-        resp.sendRedirect(req.getContextPath() + "/users");
+
+        resp.sendRedirect(req.getContextPath() + "/index");
     }
 }

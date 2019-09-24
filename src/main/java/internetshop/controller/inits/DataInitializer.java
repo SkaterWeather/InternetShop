@@ -24,9 +24,6 @@ public class DataInitializer implements ServletContextListener {
     @Inject
     private static UserService userService;
 
-    public static final Long DEFAULT_BUCKET_ID = 0L;
-    public static final Long DEFAULT_USER_ID = 0L;
-
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
         Item firstItem = new Item("firstItem", 9.54);
@@ -36,19 +33,20 @@ public class DataInitializer implements ServletContextListener {
         itemService.create(secondItem);
         itemService.create(thirdItem);
 
+        Bucket defBucket = new Bucket();
+        bucketService.create(defBucket);
+
         User defUser = new User("@login",
                 "1111",
                 "Berry",
-                "Garrett");
+                "Garrett",
+                defBucket.getId());
         userService.create(defUser);
-
-        Bucket defBucket = new Bucket(DEFAULT_USER_ID);
-        bucketService.create(defBucket);
 
         bucketService.addItem(defBucket.getId(), firstItem.getId());
         bucketService.addItem(defBucket.getId(), secondItem.getId());
 
-        orderService.completeOrder(defBucket);
+        orderService.completeOrder(defUser.getId());
 
         logger.info("All test data injected");
     }

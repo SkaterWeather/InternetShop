@@ -1,15 +1,10 @@
 package internetshop.service;
 
-import internetshop.model.Bucket;
-import internetshop.model.Item;
 import internetshop.model.Order;
 
-import java.util.List;
-
 public interface OrderService {
-    Order completeOrder(Bucket bucket);
 
-    Order completeOrder(List<Item> items, Long userId);
+    Order completeOrder(Long userId);
 
     Order create(Order order);
 

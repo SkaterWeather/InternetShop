@@ -38,6 +38,6 @@
         </tr>
     </c:forEach>
 </table>
-<a href = "<c:url value = "/order"/>">CREATE ORDER</a>
+<a href = "<c:url value = "/order"/>">Complete order</a>
 </body>
 </html>

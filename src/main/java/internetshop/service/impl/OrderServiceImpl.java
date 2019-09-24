@@ -2,14 +2,12 @@ package internetshop.service.impl;
 
 import internetshop.annotation.Inject;
 import internetshop.annotation.Service;
+import internetshop.dao.BucketDao;
 import internetshop.dao.OrderDao;
 import internetshop.dao.UserDao;
 import internetshop.model.Bucket;
-import internetshop.model.Item;
 import internetshop.model.Order;
 import internetshop.service.OrderService;
-
-import java.util.List;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -17,19 +15,16 @@ public class OrderServiceImpl implements OrderService {
     private static OrderDao orderDao;
     @Inject
     private static UserDao userdao;
+    @Inject
+    private static BucketDao bucketDao;
 
     @Override
-    public Order completeOrder(Bucket bucket) {
-        Order order = new Order(bucket.getUserId(), bucket.getItems());
+    public Order completeOrder(Long userId) {
+        Bucket bucket = bucketDao.get(userdao.get(userId).getBucketId());
+        Order order = new Order(userId, bucket.getItems());
+        userdao.get(userId).addToPurchaseHistory(order);
         orderDao.create(order);
-        userdao.get(bucket.getUserId()).addToPurchaseHistory(order);
-        return order;
-    }
-
-    @Override
-    public Order completeOrder(List<Item> items, Long userId) {
-        Order order = new Order(userId, items);
-        orderDao.create(order);
+        bucket.clearItems();
         return order;
     }
 

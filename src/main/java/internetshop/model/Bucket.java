@@ -7,12 +7,10 @@ import java.util.List;
 
 public class Bucket {
     private Long id;
-    private Long userId;
     private List<Item> items;
 
-    public Bucket(Long userId) {
+    public Bucket() {
         this.id = Generator.genBucketId();
-        this.userId = userId;
         this.items = new ArrayList<>();
     }
 
@@ -21,23 +19,15 @@ public class Bucket {
     }
 
     public void clearItems() {
-        items.clear();
+        this.items.clear();
     }
 
     public Long getId() {
-        return id;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
+        return this.id;
     }
 
     public List<Item> getItems() {
-        return items;
+        return this.items;
     }
 
     public void setItems(List<Item> items) {

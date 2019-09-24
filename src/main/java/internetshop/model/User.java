@@ -4,24 +4,31 @@ import internetshop.Generator;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class User {
     private Long id;
+    private Long bucketId;
+    private String token;
     private String name;
     private String surname;
     private String login;
     private String password;
     private List<Order> purchaseHistory;
 
-    public User(String login, String password) {
+    public User(String login, String password, Long bucketId) {
         this.id = Generator.genUserId();
+        this.bucketId = bucketId;
+        this.token = Generator.genUserToken();
         this.login = login;
         this.password = password;
         this.purchaseHistory = new ArrayList<>();
     }
 
-    public User(String login, String password, String name, String surname) {
+    public User(String login, String password, String name, String surname, Long bucketId) {
         this.id = Generator.genUserId();
+        this.bucketId = bucketId;
+        this.token = Generator.genUserToken();
         this.name = name;
         this.surname = surname;
         this.login = login;
@@ -31,6 +38,14 @@ public class User {
 
     public Long getId() {
         return id;
+    }
+
+    public Long getBucketId() {
+        return bucketId;
+    }
+
+    public String getToken() {
+        return token;
     }
 
     public String getName() {

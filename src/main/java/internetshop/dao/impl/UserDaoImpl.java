@@ -5,8 +5,10 @@ import internetshop.dao.ImagineDateBase;
 import internetshop.dao.UserDao;
 import internetshop.model.User;
 
+import javax.naming.AuthenticationException;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Dao
 public class UserDaoImpl implements UserDao {
@@ -18,11 +20,29 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    public User login(String login, String password) throws AuthenticationException{
+        Optional<User> user = ImagineDateBase.usersList.stream()
+                .filter(s -> s.getLogin().equals(login))
+                .findFirst();
+        if (user.isEmpty() || !user.get().getPassword().equals(password)) {
+            throw new AuthenticationException("Incorrect password");
+        }
+        return user.get();
+    }
+
+    @Override
     public User get(Long id) {
         return ImagineDateBase.usersList.stream()
                 .filter(s -> s.getId().equals(id))
                 .findFirst()
                 .orElseThrow(NoSuchElementException::new);
+    }
+
+    @Override
+    public Optional<User> getByToken(String token) {
+        return ImagineDateBase.usersList.stream()
+                .filter(s -> s.getToken().equals(token))
+                .findFirst();
     }
 
     @Override
