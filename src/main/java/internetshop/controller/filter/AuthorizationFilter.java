@@ -1,9 +1,9 @@
 package internetshop.controller.filter;
 
 import internetshop.annotation.Inject;
+import internetshop.model.Role;
 import internetshop.model.User;
 import internetshop.service.UserService;
-import org.apache.log4j.Logger;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterConfig;
@@ -15,42 +15,58 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
-public class AuthenticationFilter implements Filter {
-    private static final Logger logger = Logger.getLogger(AuthenticationFilter.class);
+import static internetshop.model.Role.RoleName.ADMIN;
+
+public class AuthorizationFilter implements Filter {
     @Inject
     private static UserService userService;
+    private Map<String, Role.RoleName> protectedUrls;
 
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {}
+    public void init(FilterConfig filterConfig) throws ServletException {
+        protectedUrls = new HashMap<>();
+        protectedUrls.put("/users", ADMIN);
+        protectedUrls.put("/delete-user", ADMIN);
+    }
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse,
                          FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) servletRequest;
         HttpServletResponse resp = (HttpServletResponse) servletResponse;
-        if (req.getCookies() == null) {
-            processUnAuthenticated(req, resp);
+
+        String url = req.getRequestURI().replace(req.getContextPath(), "");
+        Role.RoleName roleName = protectedUrls.get(url);
+        if (roleName == null) {
+            filterChain.doFilter(servletRequest, servletResponse);
             return;
         }
         for (Cookie cookie : req.getCookies()) {
             if (cookie.getName().equals("mate")) {
                 Optional<User> user = userService.getByToken(cookie.getValue());
                 if (user.isPresent()) {
-                    logger.info("User " + user.get().getLogin() + " was authenticated ");
-                    filterChain.doFilter(servletRequest, servletResponse);
+                    if (verifyRole(user.get(), roleName)) {
+                        filterChain.doFilter(servletRequest, servletResponse);
+                    } else {
+                        processDenied(req, resp);
+                    }
                     return;
                 }
             }
         }
-        processUnAuthenticated(req, resp);
     }
 
-    private void processUnAuthenticated(HttpServletRequest req, HttpServletResponse resp)
-            throws IOException {
-        logger.info("User was not authenticated ");
-        resp.sendRedirect(req.getContextPath() + "/login");
+    private boolean verifyRole(User user, Role.RoleName roleName) {
+        return user.getRoles().stream().anyMatch(s -> s.equals(roleName));
+    }
+
+    private void processDenied(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+        req.getRequestDispatcher("WEB-INF/view/denied.jsp").forward(req, resp);
     }
 
     @Override

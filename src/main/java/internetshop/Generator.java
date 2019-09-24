@@ -7,6 +7,7 @@ public class Generator {
     private static Long genUserId;
     private static Long genBucketId;
     private static Long genOrderId;
+    private static Long genRoleId;
 
     public static Long genItemId() {
         if (genItemId == null) {
@@ -34,6 +35,13 @@ public class Generator {
             genOrderId = 0L;
         }
         return genOrderId++;
+    }
+
+    public static Long genRoleId() {
+        if (genRoleId == null) {
+            genRoleId = 0L;
+        }
+        return genRoleId++;
     }
 
     public static String genUserToken() {

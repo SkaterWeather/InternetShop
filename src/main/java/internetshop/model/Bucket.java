@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Bucket {
-    private Long id;
+    private final Long id;
     private List<Item> items;
 
     public Bucket() {
