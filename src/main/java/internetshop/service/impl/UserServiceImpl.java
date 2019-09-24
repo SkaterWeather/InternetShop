@@ -3,13 +3,13 @@ package internetshop.service.impl;
 import internetshop.annotation.Inject;
 import internetshop.annotation.Service;
 import internetshop.dao.UserDao;
+import internetshop.model.Order;
 import internetshop.model.User;
 import internetshop.service.UserService;
 
 import javax.naming.AuthenticationException;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -22,7 +22,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List getOrders(Long userId) {
+    public List<Order> getOrders(Long userId) {
         return userDao.get(userId).getPurchaseHistory();
     }
 

@@ -17,19 +17,19 @@ public class User {
 
     public User(String login, String password) {
         this.id = Generator.genUserId();
+        this.token = Generator.genUserToken();
         this.login = login;
         this.password = password;
-        this.token = generateToken();
         this.purchaseHistory = new ArrayList<>();
     }
 
     public User(String login, String password, String name, String surname) {
         this.id = Generator.genUserId();
+        this.token = Generator.genUserToken();
         this.name = name;
         this.surname = surname;
         this.login = login;
         this.password = password;
-        this.token = generateToken();
         this.purchaseHistory = new ArrayList<>();
     }
 
@@ -41,8 +41,8 @@ public class User {
         return token;
     }
 
-    private String generateToken() {
-        return UUID.randomUUID().toString();
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public String getName() {
