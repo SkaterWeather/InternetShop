@@ -22,7 +22,6 @@ public class DeleteFromPurchaseHistoryController extends HttpServlet {
         String orderId = req.getParameter("order_id");
         userService.get(userId).deleteFromPurchaseHistory(Long.valueOf(orderId));
         logger.info("Order[" + orderId + "] deleted, userId = " + userId);
-        //TODO: trying to redirect on index page '/purchase-history'
-        resp.sendRedirect(req.getContextPath() + "/index");
+        resp.sendRedirect(req.getContextPath() + "/purchase-history");
     }
 }

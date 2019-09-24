@@ -41,7 +41,7 @@
                     <a href = "<c:url value = "/delete-user?user_id=${user.id}"/>">delete</a>
                 </td>
                 <td>
-                    <a href = "<c:url value = "/purchase-history?user_id=${user.id}"/>">view</a>
+                    <a href = "<c:url value = "/purchase-history"/>">view</a>
                 </td>
             </tr>
         </c:forEach>
