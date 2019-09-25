@@ -20,6 +20,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import static internetshop.model.Role.RoleName.ADMIN;
+import static internetshop.model.Role.RoleName.USER;
 
 public class AuthorizationFilter implements Filter {
     @Inject
@@ -30,7 +31,10 @@ public class AuthorizationFilter implements Filter {
     public void init(FilterConfig filterConfig) throws ServletException {
         protectedUrls = new HashMap<>();
         protectedUrls.put("/users", ADMIN);
-        protectedUrls.put("/delete-user", ADMIN);
+
+        protectedUrls.put("/bucket", USER);
+        protectedUrls.put("/add-to-bucket", USER);
+        protectedUrls.put("/delete-from-bucket", USER);
     }
 
     @Override
@@ -58,6 +62,7 @@ public class AuthorizationFilter implements Filter {
                 }
             }
         }
+        processDenied(req, resp);
     }
 
     private boolean verifyRole(User user, Role.RoleName roleName) {
