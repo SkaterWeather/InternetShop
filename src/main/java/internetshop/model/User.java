@@ -13,7 +13,7 @@ public class User {
     private String login;
     private String password;
     private List<Order> purchaseHistory;
-    private Set<Role.RoleName> roles;
+    private Set<Role> roles;
 
     public User(String login, String password, Long bucketId) {
         this.id = Generator.genUserId();
@@ -23,7 +23,7 @@ public class User {
         this.password = password;
         this.purchaseHistory = new ArrayList<>();
         this.roles = new HashSet<>();
-        addRole(Role.RoleName.USER);
+        addRole(new Role(Role.RoleName.USER));
     }
 
     public User(String login, String password, String name, String surname, Long bucketId) {
@@ -36,7 +36,7 @@ public class User {
         this.password = password;
         this.purchaseHistory = new ArrayList<>();
         this.roles = new HashSet<>();
-        addRole(Role.RoleName.USER);
+        addRole(new Role(Role.RoleName.USER));
     }
 
     public Long getId() {
@@ -95,15 +95,15 @@ public class User {
         this.purchaseHistory.removeIf(s -> s.getId().equals(orderId));
     }
 
-    public Set<Role.RoleName> getRoles() {
+    public Set<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<Role.RoleName> roles) {
+    public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
 
-    public void addRole(Role.RoleName role) {
+    public void addRole(Role role) {
         this.roles.add(role);
     }
 

@@ -61,7 +61,7 @@ public class AuthorizationFilter implements Filter {
     }
 
     private boolean verifyRole(User user, Role.RoleName roleName) {
-        return user.getRoles().stream().anyMatch(s -> s.equals(roleName));
+        return user.getRoles().stream().anyMatch(s -> s.getRoleName().equals(roleName));
     }
 
     private void processDenied(HttpServletRequest req, HttpServletResponse resp)

@@ -10,6 +10,11 @@ public class Role {
         this.id = Generator.genRoleId();
     }
 
+    public Role(RoleName roleName) {
+        this.id = Generator.genRoleId();
+        this.roleName = roleName;
+    }
+
     public Long getId() {
         return id;
     }

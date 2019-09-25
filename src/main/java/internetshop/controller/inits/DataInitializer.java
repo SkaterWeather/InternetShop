@@ -42,7 +42,7 @@ public class DataInitializer implements ServletContextListener {
                 "Berry",
                 "Garrett",
                 defBucket.getId());
-        defUser.addRole(Role.RoleName.ADMIN);
+        defUser.addRole(new Role(Role.RoleName.ADMIN));
         userService.create(defUser);
 
         bucketService.addItem(defBucket.getId(), firstItem.getId());
