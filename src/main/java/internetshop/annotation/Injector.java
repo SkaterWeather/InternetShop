@@ -1,6 +1,5 @@
 package internetshop.annotation;
 
-import internetshop.controller.IndexController;
 import org.apache.log4j.Logger;
 
 import java.io.File;

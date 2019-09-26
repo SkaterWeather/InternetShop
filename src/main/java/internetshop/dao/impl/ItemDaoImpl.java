@@ -41,9 +41,4 @@ public class ItemDaoImpl implements ItemDao {
     public void delete(Long id) {
         ImagineDateBase.itemsList.removeIf(s -> s.getId().equals(id));
     }
-
-    @Override
-    public void delete(Item item) {
-        ImagineDateBase.itemsList.removeIf(s -> s.equals(item));
-    }
 }

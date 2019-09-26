@@ -7,6 +7,12 @@ public class Item {
     private String name;
     private Double price;
 
+    public Item(Long id, String name, Double price) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+    }
+
     public Item(String name, Double price) {
         this.id = Generator.genItemId();
         this.name = name;
@@ -31,5 +37,10 @@ public class Item {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    @Override
+    public String toString() {
+        return "[" + this.id + "_" + this.name + "_" + this.price + "]";
     }
 }
