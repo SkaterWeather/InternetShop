@@ -3,7 +3,7 @@ package internetshop.model;
 import internetshop.Generator;
 
 public class Item {
-    private Long id;
+    private final Long id;
     private String name;
     private Double price;
 

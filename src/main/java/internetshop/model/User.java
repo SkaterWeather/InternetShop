@@ -2,19 +2,18 @@ package internetshop.model;
 
 import internetshop.Generator;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public class User {
-    private Long id;
-    private Long bucketId;
+    private final Long id;
+    private final Long bucketId;
     private String token;
     private String name;
     private String surname;
     private String login;
     private String password;
     private List<Order> purchaseHistory;
+    private Set<Role> roles;
 
     public User(String login, String password, Long bucketId) {
         this.id = Generator.genUserId();
@@ -23,6 +22,8 @@ public class User {
         this.login = login;
         this.password = password;
         this.purchaseHistory = new ArrayList<>();
+        this.roles = new HashSet<>();
+        addRole(new Role(Role.RoleName.USER));
     }
 
     public User(String login, String password, String name, String surname, Long bucketId) {
@@ -34,6 +35,8 @@ public class User {
         this.login = login;
         this.password = password;
         this.purchaseHistory = new ArrayList<>();
+        this.roles = new HashSet<>();
+        addRole(new Role(Role.RoleName.USER));
     }
 
     public Long getId() {
@@ -90,6 +93,18 @@ public class User {
 
     public void deleteFromPurchaseHistory(Long orderId) {
         this.purchaseHistory.removeIf(s -> s.getId().equals(orderId));
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
+    public void addRole(Role role) {
+        this.roles.add(role);
     }
 
     @Override

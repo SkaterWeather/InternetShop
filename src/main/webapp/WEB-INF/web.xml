@@ -112,12 +112,39 @@
         <url-pattern>/login</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>logout</servlet-name>
+        <servlet-class>internetshop.controller.LogoutController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>logout</servlet-name>
+        <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+
     <filter>
         <filter-name>authentication-filter</filter-name>
         <filter-class>internetshop.controller.filter.AuthenticationFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>authentication-filter</filter-name>
+        <url-pattern>/users</url-pattern>
+        <url-pattern>/items</url-pattern>
+        <url-pattern>/order</url-pattern>
+        <url-pattern>/bucket</url-pattern>
+        <url-pattern>/add-to-bucket</url-pattern>
+        <url-pattern>/delete-from-bucket</url-pattern>
+        <url-pattern>/delete-user</url-pattern>
+        <url-pattern>/delete-from-purchase-history</url-pattern>
+        <url-pattern>/purchase-history</url-pattern>
+        <url-pattern>/logout</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>authorization-filter</filter-name>
+        <filter-class>internetshop.controller.filter.AuthorizationFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>authorization-filter</filter-name>
         <url-pattern>/users</url-pattern>
         <url-pattern>/items</url-pattern>
         <url-pattern>/order</url-pattern>

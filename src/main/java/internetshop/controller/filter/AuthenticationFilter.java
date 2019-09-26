@@ -23,9 +23,7 @@ public class AuthenticationFilter implements Filter {
     private static UserService userService;
 
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
-
-    }
+    public void init(FilterConfig filterConfig) throws ServletException {}
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse,
@@ -46,17 +44,15 @@ public class AuthenticationFilter implements Filter {
                 }
             }
         }
-        logger.info("User was not authenticated ");
         processUnAuthenticated(req, resp);
     }
 
     private void processUnAuthenticated(HttpServletRequest req, HttpServletResponse resp)
             throws IOException {
+        logger.info("User was not authenticated ");
         resp.sendRedirect(req.getContextPath() + "/login");
     }
 
     @Override
-    public void destroy() {
-
-    }
+    public void destroy() {}
 }

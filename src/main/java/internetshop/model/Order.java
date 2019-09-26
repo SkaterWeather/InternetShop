@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Order {
-    private Long id;
+    private final Long id;
     private Long userId;
     private Double totalPrice;
     private List<Item> itemsList;

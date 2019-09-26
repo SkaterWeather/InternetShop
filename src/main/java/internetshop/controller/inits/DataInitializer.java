@@ -3,6 +3,7 @@ package internetshop.controller.inits;
 import internetshop.annotation.Inject;
 import internetshop.model.Bucket;
 import internetshop.model.Item;
+import internetshop.model.Role;
 import internetshop.model.User;
 import internetshop.service.BucketService;
 import internetshop.service.ItemService;
@@ -41,6 +42,7 @@ public class DataInitializer implements ServletContextListener {
                 "Berry",
                 "Garrett",
                 defBucket.getId());
+        defUser.addRole(new Role(Role.RoleName.ADMIN));
         userService.create(defUser);
 
         bucketService.addItem(defBucket.getId(), firstItem.getId());
