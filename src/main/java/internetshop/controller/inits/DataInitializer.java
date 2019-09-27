@@ -27,7 +27,6 @@ public class DataInitializer implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
-        //testing itemDaoJdbcImpl.class
         Item defItem = new Item("Sword", 9.54);
         logger.info("Item put into DB: " + itemService.create(defItem));
         logger.info("Item got from DB: " + itemService.get(defItem.getId()));

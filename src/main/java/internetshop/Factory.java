@@ -38,6 +38,7 @@ public class Factory {
         }
     }
 
+    private static ItemDao itemDaoInstance;
     private static BucketDao bucketDaoInstance;
     private static OrderDao orderDaoInstance;
     private static UserDao userDaoInstance;
@@ -47,7 +48,10 @@ public class Factory {
     private static UserService userServiceInstance;
 
     public static ItemDao getItemDao() {
-        return new ItemDaoJdbcImpl(connection);
+        if (itemDaoInstance == null) {
+            itemDaoInstance = new ItemDaoJdbcImpl(connection);
+        }
+        return itemDaoInstance;
     }
 
     public static BucketDao getBucketDao() {
