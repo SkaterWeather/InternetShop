@@ -26,8 +26,7 @@ public class ItemDaoJdbcImpl extends AbstractDao<Item> implements ItemDao {
         String query = String.format("INSERT INTO %s (id, name, price) VALUES (%d, '%s', %f);",
                 ITEMS_TABLE, item.getId(), item.getName(), item.getPrice());
 
-        try {
-            Statement statement = connection.createStatement();
+        try (Statement statement = connection.createStatement()) {
             statement.executeUpdate(query);
         } catch (SQLException e) {
             logger.error("Can't create item " + item);
@@ -40,8 +39,7 @@ public class ItemDaoJdbcImpl extends AbstractDao<Item> implements ItemDao {
         String query = String.format("SELECT * FROM %s WHERE id=%d;",
                 ITEMS_TABLE, id);
 
-        try {
-            Statement statement = connection.createStatement();
+        try (Statement statement = connection.createStatement()) {
             ResultSet resultSet = statement.executeQuery(query);
             if (resultSet.next()) {
                 Long item_id = resultSet.getLong("id");
@@ -60,8 +58,7 @@ public class ItemDaoJdbcImpl extends AbstractDao<Item> implements ItemDao {
         String query = String.format("SELECT * FROM %s;", ITEMS_TABLE);
         List<Item> resultList = new ArrayList<>();
 
-        try {
-            Statement statement = connection.createStatement();
+        try (Statement statement = connection.createStatement()) {
             ResultSet resultSet = statement.executeQuery(query);
 
             while (resultSet.next()) {
@@ -81,8 +78,7 @@ public class ItemDaoJdbcImpl extends AbstractDao<Item> implements ItemDao {
         String query = String.format("UPDATE %s SET name='%s', price=%f WHERE id=%d;",
                 ITEMS_TABLE, item.getName(), item.getPrice(), item.getId());
 
-        try {
-            Statement statement = connection.createStatement();
+        try (Statement statement = connection.createStatement()) {
             statement.executeUpdate(query);
         } catch (SQLException e) {
             logger.error("Can't update item " + item);
@@ -95,8 +91,7 @@ public class ItemDaoJdbcImpl extends AbstractDao<Item> implements ItemDao {
         String query = String.format("DELETE FROM %s WHERE id=%d;",
                 ITEMS_TABLE, id);
 
-        try {
-            Statement statement = connection.createStatement();
+        try (Statement statement = connection.createStatement()) {
             statement.executeUpdate(query);
         } catch (SQLException e) {
             logger.error("Can't delete item by ID " + id);
