@@ -2,7 +2,10 @@ package internetshop.model;
 
 import internetshop.Generator;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class User {
     private final Long id;

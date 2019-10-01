@@ -27,16 +27,17 @@ public class DataInitializer implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
-        Item firstItem = new Item("firstItem", 9.54);
-        Item secondItem = new Item("secondItem", 3.48);
-        Item thirdItem = new Item("thirdItem", 10.00);
-        itemService.create(firstItem);
-        itemService.create(secondItem);
-        itemService.create(thirdItem);
+        Item defItem = new Item("Sword", 9.54);
+        logger.info("Item put into DB: " + itemService.create(defItem));
+        logger.info("Item got from DB: " + itemService.get(defItem.getId()));
+        defItem.setName("Axe");
+        itemService.update(defItem);
+        logger.info("Item updated into DB: " + itemService.get(defItem.getId()));
+        itemService.delete(defItem.getId());
+        logger.info("Item deleted from DB");
 
         Bucket defBucket = new Bucket();
         bucketService.create(defBucket);
-
         User defUser = new User("@login",
                 "1111",
                 "Berry",
@@ -44,12 +45,6 @@ public class DataInitializer implements ServletContextListener {
                 defBucket.getId());
         defUser.addRole(new Role(Role.RoleName.ADMIN));
         userService.create(defUser);
-
-        bucketService.addItem(defBucket.getId(), firstItem.getId());
-        bucketService.addItem(defBucket.getId(), secondItem.getId());
-
-        orderService.completeOrder(defUser.getId());
-
         logger.info("All test data injected");
     }
 
