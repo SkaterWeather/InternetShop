@@ -19,5 +19,5 @@ public interface UserDao {
 
     List<User> getAll();
 
-    Optional<User> getByToken(String token);
+    User getByToken(String token);
 }

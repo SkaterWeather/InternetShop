@@ -74,8 +74,7 @@ public class UserDaoJdbcImpl extends AbstractDao<User> implements UserDao {
                 String surname = resultSet.getString("surname");
                 String token = resultSet.getString("token");
                 long bucketId = resultSet.getLong("bucket_id");
-                Set<Role> roles = getRolesByUserId(id);
-                return new User(id, bucketId, token, name, surname, login, password, roles);
+                return new User(id, bucketId, token, name, surname, login, password);
             }
         } catch (SQLException e) {
             logger.error("Can't get order by ID=" + id);
@@ -142,8 +141,7 @@ public class UserDaoJdbcImpl extends AbstractDao<User> implements UserDao {
                 String name = resultSet.getString("name");
                 String surname = resultSet.getString("surname");
                 String token = resultSet.getString("token");
-                Set<Role> roles = getRolesByUserId(id);
-                return new User(id, bucketId, token, name, surname, login, password, roles);
+                return new User(id, bucketId, token, name, surname, login, password);
             } else {
                 throw new AuthenticationException("Incorrect login or password");
             }
@@ -169,8 +167,7 @@ public class UserDaoJdbcImpl extends AbstractDao<User> implements UserDao {
                 String surname = resultSet.getString("surname");
                 String token = resultSet.getString("token");
                 long bucketId = resultSet.getLong("bucket_id");
-                Set<Role> roles = getRolesByUserId(id);
-                resultList.add(new User(id, bucketId, token, name, surname, login, password, roles));
+                resultList.add(new User(id, bucketId, token, name, surname, login, password));
             }
         } catch (SQLException e) {
             logger.error("Can't get all users from table 'users'");
@@ -179,9 +176,8 @@ public class UserDaoJdbcImpl extends AbstractDao<User> implements UserDao {
     }
 
     @Override
-    public Optional<User> getByToken(String token) {
+    public User getByToken(String token) {
         String query = "SELECT * FROM users WHERE token=?;";
-        Optional<User> user = Optional.empty();
 
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, token);
@@ -194,15 +190,14 @@ public class UserDaoJdbcImpl extends AbstractDao<User> implements UserDao {
                 String name = resultSet.getString("name");
                 String surname = resultSet.getString("surname");
                 long bucketId = resultSet.getLong("bucket_id");
-                Set<Role> roles = getRolesByUserId(id);
-                user = Optional.of(new User(id, bucketId, token, name, surname, login, password, roles));
+                return new User(id, bucketId, token, name, surname, login, password);
             }
         } catch (SQLException e) {
             logger.error("Can't get user by token=" + token);
         }
-        return user;
+        return null;
     }
-
+/*
     private Set<Role> getRolesByUserId(Long userId) {
         String query = "SELECT * FROM roles " +
                 "INNER JOIN users_roles " +
@@ -224,4 +219,5 @@ public class UserDaoJdbcImpl extends AbstractDao<User> implements UserDao {
         }
         return resultRoles;
     }
+    */
 }

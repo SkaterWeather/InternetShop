@@ -3,10 +3,12 @@ package internetshop;
 import internetshop.dao.BucketDao;
 import internetshop.dao.ItemDao;
 import internetshop.dao.OrderDao;
+import internetshop.dao.RoleDao;
 import internetshop.dao.UserDao;
 import internetshop.dao.jdbc.BucketDaoJdbcImpl;
 import internetshop.dao.jdbc.ItemDaoJdbcImpl;
 import internetshop.dao.jdbc.OrderDaoJdbcImpl;
+import internetshop.dao.jdbc.RoleDaoJdbcImpl;
 import internetshop.dao.jdbc.UserDaoJdbcImpl;
 import internetshop.service.BucketService;
 import internetshop.service.ItemService;
@@ -42,6 +44,7 @@ public class Factory {
     private static BucketDao bucketDaoInstance;
     private static OrderDao orderDaoInstance;
     private static UserDao userDaoInstance;
+    private static RoleDao roleDaoInstance;
     private static ItemService itemServiceInstance;
     private static BucketService bucketServiceInstance;
     private static OrderService orderServiceInstance;
@@ -73,6 +76,13 @@ public class Factory {
             userDaoInstance = new UserDaoJdbcImpl(connection);
         }
         return userDaoInstance;
+    }
+
+    public static RoleDao getRoleDao() {
+        if (roleDaoInstance == null) {
+            roleDaoInstance = new RoleDaoJdbcImpl(connection);
+        }
+        return roleDaoInstance;
     }
 
     public static ItemService getItemService() {

@@ -13,7 +13,7 @@ public class User {
     private Set<Role> roles;
 
     public User(Long id, Long bucketId, String token,
-                String name, String surname, String login, String password, Set<Role> roles) {
+                String name, String surname, String login, String password) {
         this.id = id;
         this.bucketId = bucketId;
         this.token = token;
@@ -21,7 +21,6 @@ public class User {
         this.surname = surname;
         this.login = login;
         this.password = password;
-        this.roles = roles;
     }
 
     public User(String login, String password, String name, String surname, Long bucketId) {
