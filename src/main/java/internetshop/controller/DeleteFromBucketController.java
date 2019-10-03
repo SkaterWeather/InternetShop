@@ -22,7 +22,7 @@ public class DeleteFromBucketController extends HttpServlet {
             throws ServletException, IOException {
         Long userId = (Long) req.getSession(true).getAttribute("userId");
         String itemId = req.getParameter("item_id");
-        bucketService.get(userService.get(userId).getBucketId()).deleteItem(Long.valueOf(itemId));
+        bucketService.deleteItem(userService.get(userId).getBucketId(), Long.valueOf(itemId));
         resp.sendRedirect(req.getContextPath() + "/bucket");
     }
 }

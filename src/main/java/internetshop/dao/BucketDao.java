@@ -10,6 +10,4 @@ public interface BucketDao {
     Bucket update(Bucket bucket);
 
     void delete(Long id);
-
-    void delete(Bucket bucket);
 }

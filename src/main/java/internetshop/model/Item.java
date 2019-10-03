@@ -1,9 +1,7 @@
 package internetshop.model;
 
-import internetshop.Generator;
-
 public class Item {
-    private final Long id;
+    private Long id;
     private String name;
     private Double price;
 
@@ -14,13 +12,16 @@ public class Item {
     }
 
     public Item(String name, Double price) {
-        this.id = Generator.genItemId();
         this.name = name;
         this.price = price;
     }
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {

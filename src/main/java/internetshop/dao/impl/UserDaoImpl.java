@@ -61,9 +61,4 @@ public class UserDaoImpl implements UserDao {
     public void delete(Long id) {
         ImagineDateBase.usersList.removeIf(s -> s.getId().equals(id));
     }
-
-    @Override
-    public void delete(User user) {
-        ImagineDateBase.usersList.removeIf(s -> s.equals(user));
-    }
 }

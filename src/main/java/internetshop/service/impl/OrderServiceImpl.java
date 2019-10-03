@@ -9,6 +9,8 @@ import internetshop.model.Bucket;
 import internetshop.model.Order;
 import internetshop.service.OrderService;
 
+import java.util.List;
+
 @Service
 public class OrderServiceImpl implements OrderService {
     @Inject
@@ -22,10 +24,15 @@ public class OrderServiceImpl implements OrderService {
     public Order completeOrder(Long userId) {
         Bucket bucket = bucketDao.get(userdao.get(userId).getBucketId());
         Order order = new Order(userId, bucket.getItems());
-        userdao.get(userId).addToPurchaseHistory(order);
         orderDao.create(order);
         bucket.clearItems();
+        bucketDao.update(bucket);
         return order;
+    }
+
+    @Override
+    public List<Order> getAllOrdersByUserId(Long userId) {
+        return orderDao.getAllOrdersByUserId(userId);
     }
 
     @Override
@@ -46,10 +53,5 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void delete(Long id) {
         orderDao.delete(id);
-    }
-
-    @Override
-    public void delete(Order order) {
-        orderDao.delete(order);
     }
 }

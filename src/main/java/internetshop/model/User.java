@@ -1,53 +1,58 @@
 package internetshop.model;
 
-import internetshop.Generator;
-
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class User {
-    private final Long id;
-    private final Long bucketId;
+    private Long id;
+    private Long bucketId;
     private String token;
     private String name;
     private String surname;
     private String login;
     private String password;
-    private List<Order> purchaseHistory;
     private Set<Role> roles;
 
-    public User(String login, String password, Long bucketId) {
-        this.id = Generator.genUserId();
+    public User(Long id, Long bucketId, String token,
+                String name, String surname, String login, String password, Set<Role> roles) {
+        this.id = id;
         this.bucketId = bucketId;
-        this.token = Generator.genUserToken();
-        this.login = login;
-        this.password = password;
-        this.purchaseHistory = new ArrayList<>();
-        this.roles = new HashSet<>();
-        addRole(new Role(Role.RoleName.USER));
-    }
-
-    public User(String login, String password, String name, String surname, Long bucketId) {
-        this.id = Generator.genUserId();
-        this.bucketId = bucketId;
-        this.token = Generator.genUserToken();
+        this.token = token;
         this.name = name;
         this.surname = surname;
         this.login = login;
         this.password = password;
-        this.purchaseHistory = new ArrayList<>();
+        this.roles = roles;
+    }
+
+    public User(String login, String password, String name, String surname, Long bucketId) {
+        this.bucketId = bucketId;
+        this.token = UUID.randomUUID().toString();
+        this.name = name;
+        this.surname = surname;
+        this.login = login;
+        this.password = password;
         this.roles = new HashSet<>();
-        addRole(new Role(Role.RoleName.USER));
+        addRole(new Role(1L, Role.RoleName.USER));
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Long getId() {
         return id;
     }
 
+    public void setBucketId(Long bucketId) {
+        this.bucketId = bucketId;
+    }
+
     public Long getBucketId() {
         return bucketId;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public String getToken() {
@@ -84,18 +89,6 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public List<Order> getPurchaseHistory() {
-        return purchaseHistory;
-    }
-
-    public void addToPurchaseHistory(Order order) {
-        this.purchaseHistory.add(order);
-    }
-
-    public void deleteFromPurchaseHistory(Long orderId) {
-        this.purchaseHistory.removeIf(s -> s.getId().equals(orderId));
     }
 
     public Set<Role> getRoles() {

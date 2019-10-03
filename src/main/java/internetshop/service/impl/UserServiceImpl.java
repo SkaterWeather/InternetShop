@@ -22,11 +22,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<Order> getOrders(Long userId) {
-        return userDao.get(userId).getPurchaseHistory();
-    }
-
-    @Override
     public User create(User user) {
         return userDao.create(user);
     }
@@ -54,10 +49,5 @@ public class UserServiceImpl implements UserService {
     @Override
     public void delete(Long id) {
         userDao.delete(id);
-    }
-
-    @Override
-    public void delete(User user) {
-        userDao.delete(user);
     }
 }
