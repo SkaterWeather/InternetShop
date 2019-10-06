@@ -4,6 +4,7 @@ import internetshop.Factory;
 import internetshop.dao.BucketDao;
 import internetshop.dao.ItemDao;
 import internetshop.dao.OrderDao;
+import internetshop.dao.RoleDao;
 import internetshop.dao.UserDao;
 import internetshop.service.BucketService;
 import internetshop.service.ItemService;
@@ -25,6 +26,7 @@ public class InjectorHelper {
         objectsToInject.put(BucketDao.class, Factory.getBucketDao());
         objectsToInject.put(OrderDao.class, Factory.getOrderDao());
         objectsToInject.put(UserDao.class, Factory.getUserDao());
+        objectsToInject.put(RoleDao.class, Factory.getRoleDao());
     }
 
     public static Object getFactoryImpl(Class cls) {

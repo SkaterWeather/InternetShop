@@ -2,8 +2,8 @@ package internetshop.service.impl;
 
 import internetshop.annotation.Inject;
 import internetshop.annotation.Service;
+import internetshop.dao.RoleDao;
 import internetshop.dao.UserDao;
-import internetshop.model.Order;
 import internetshop.model.User;
 import internetshop.service.UserService;
 
@@ -15,15 +15,16 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
     @Inject
     private static UserDao userDao;
+    @Inject
+    private static RoleDao roleDao;
 
     @Override
     public List<User> getAll() {
-        return userDao.getAll();
-    }
-
-    @Override
-    public List<Order> getOrders(Long userId) {
-        return userDao.get(userId).getPurchaseHistory();
+        List<User> users = userDao.getAll();
+        for (User user : users) {
+            user.setRoles(roleDao.getRolesByUserId(user.getId()));
+        }
+        return users;
     }
 
     @Override
@@ -33,17 +34,23 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User login(String login, String password) throws AuthenticationException {
-         return userDao.login(login, password);
+        User user = userDao.login(login, password);
+        user.setRoles(roleDao.getRolesByUserId(user.getId()));
+        return user;
     }
 
     @Override
     public User get(Long id) {
-        return userDao.get(id);
+        User user = userDao.get(id);
+        user.setRoles(roleDao.getRolesByUserId(id));
+        return user;
     }
 
     @Override
     public Optional<User> getByToken(String token) {
-        return userDao.getByToken(token);
+        User user = userDao.getByToken(token);
+        user.setRoles(roleDao.getRolesByUserId(user.getId()));
+        return Optional.of(user);
     }
 
     @Override
@@ -54,10 +61,5 @@ public class UserServiceImpl implements UserService {
     @Override
     public void delete(Long id) {
         userDao.delete(id);
-    }
-
-    @Override
-    public void delete(User user) {
-        userDao.delete(user);
     }
 }

@@ -1,18 +1,22 @@
 package internetshop.model;
 
-import internetshop.Generator;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class Order {
-    private final Long id;
+    private Long id;
     private Long userId;
     private Double totalPrice;
     private List<Item> itemsList;
 
+    public Order(Long id, Long userId, List<Item> items) {
+        this.id = id;
+        this.userId = userId;
+        this.itemsList = new ArrayList<>(items);
+        calculateTotalPrice();
+    }
+
     public Order(Long userId, List<Item> items) {
-        this.id = Generator.genOrderId();
         this.userId = userId;
         this.itemsList = new ArrayList<>(items);
         calculateTotalPrice();
@@ -20,6 +24,10 @@ public class Order {
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Long getUserId() {

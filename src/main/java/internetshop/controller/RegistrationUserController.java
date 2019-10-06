@@ -30,7 +30,7 @@ public class RegistrationUserController extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         Bucket newBucket = new Bucket();
-        bucketService.create(newBucket);
+        newBucket = bucketService.create(newBucket);
         logger.info("Created empty user bucket");
         User newUser = new User(req.getParameter("login"),
                 req.getParameter("password"),

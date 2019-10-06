@@ -2,6 +2,8 @@ package internetshop.dao;
 
 import internetshop.model.Order;
 
+import java.util.List;
+
 public interface OrderDao {
     Order create(Order order);
 
@@ -11,5 +13,5 @@ public interface OrderDao {
 
     void delete(Long id);
 
-    void delete(Order order);
+    List<Order> getAllOrdersByUserId(Long userId);
 }

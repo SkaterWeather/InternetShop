@@ -8,8 +8,6 @@ import internetshop.model.Bucket;
 import internetshop.model.Item;
 import internetshop.service.BucketService;
 
-import java.util.List;
-
 @Service
 public class BucketServiceImpl implements BucketService {
     @Inject
@@ -26,14 +24,10 @@ public class BucketServiceImpl implements BucketService {
     }
 
     @Override
-    public Bucket clear(Long bucketId) {
-        bucketDao.get(bucketId).clearItems();
-        return bucketDao.get(bucketId);
-    }
-
-    @Override
-    public List getAllItems(Long bucketId) {
-        return bucketDao.get(bucketId).getItems();
+    public Bucket deleteItem(Long bucketId, Long itemId) {
+        Bucket bucket = bucketDao.get(bucketId);
+        bucket.deleteItem(itemId);
+        return bucketDao.update(bucket);
     }
 
     @Override
@@ -54,10 +48,5 @@ public class BucketServiceImpl implements BucketService {
     @Override
     public void delete(Long id) {
         bucketDao.delete(id);
-    }
-
-    @Override
-    public void delete(Bucket bucket) {
-        bucketDao.delete(bucket);
     }
 }

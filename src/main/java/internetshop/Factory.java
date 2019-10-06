@@ -3,11 +3,13 @@ package internetshop;
 import internetshop.dao.BucketDao;
 import internetshop.dao.ItemDao;
 import internetshop.dao.OrderDao;
+import internetshop.dao.RoleDao;
 import internetshop.dao.UserDao;
-import internetshop.dao.impl.BucketDaoImpl;
-import internetshop.dao.impl.OrderDaoImpl;
-import internetshop.dao.impl.UserDaoImpl;
+import internetshop.dao.jdbc.BucketDaoJdbcImpl;
 import internetshop.dao.jdbc.ItemDaoJdbcImpl;
+import internetshop.dao.jdbc.OrderDaoJdbcImpl;
+import internetshop.dao.jdbc.RoleDaoJdbcImpl;
+import internetshop.dao.jdbc.UserDaoJdbcImpl;
 import internetshop.service.BucketService;
 import internetshop.service.ItemService;
 import internetshop.service.OrderService;
@@ -42,6 +44,7 @@ public class Factory {
     private static BucketDao bucketDaoInstance;
     private static OrderDao orderDaoInstance;
     private static UserDao userDaoInstance;
+    private static RoleDao roleDaoInstance;
     private static ItemService itemServiceInstance;
     private static BucketService bucketServiceInstance;
     private static OrderService orderServiceInstance;
@@ -56,23 +59,30 @@ public class Factory {
 
     public static BucketDao getBucketDao() {
         if (bucketDaoInstance == null) {
-            bucketDaoInstance = new BucketDaoImpl();
+            bucketDaoInstance = new BucketDaoJdbcImpl(connection);
         }
         return bucketDaoInstance;
     }
 
     public static OrderDao getOrderDao() {
         if (orderDaoInstance == null) {
-            orderDaoInstance = new OrderDaoImpl();
+            orderDaoInstance = new OrderDaoJdbcImpl(connection);
         }
         return orderDaoInstance;
     }
 
     public static UserDao getUserDao() {
         if (userDaoInstance == null) {
-            userDaoInstance = new UserDaoImpl();
+            userDaoInstance = new UserDaoJdbcImpl(connection);
         }
         return userDaoInstance;
+    }
+
+    public static RoleDao getRoleDao() {
+        if (roleDaoInstance == null) {
+            roleDaoInstance = new RoleDaoJdbcImpl(connection);
+        }
+        return roleDaoInstance;
     }
 
     public static ItemService getItemService() {

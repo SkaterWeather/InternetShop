@@ -1,17 +1,16 @@
 package internetshop.model;
 
-import internetshop.Generator;
-
 public class Role {
-    private final Long id;
+    private Long id;
     private RoleName roleName;
 
-    public Role() {
-        this.id = Generator.genRoleId();
+    public Role(Long id, String roleName) {
+        this.id = id;
+        setRoleName(roleName);
     }
 
-    public Role(RoleName roleName) {
-        this.id = Generator.genRoleId();
+    public Role(Long id, RoleName roleName) {
+        this.id = id;
         this.roleName = roleName;
     }
 
@@ -21,6 +20,15 @@ public class Role {
 
     public void setRoleName(RoleName roleName) {
         this.roleName = roleName;
+    }
+
+    public void setRoleName(String roleName) {
+        if (roleName.equals("USER")) {
+            this.roleName = RoleName.USER;
+        }
+        if (roleName.equals("ADMIN")) {
+            this.roleName = RoleName.ADMIN;
+        }
     }
 
     public RoleName getRoleName() {

@@ -35,9 +35,4 @@ public class BucketDaoImpl implements BucketDao {
     public void delete(Long id) {
         ImagineDateBase.bucketsList.removeIf(s -> s.getId().equals(id));
     }
-
-    @Override
-    public void delete(Bucket bucket) {
-        ImagineDateBase.bucketsList.removeIf(s -> s.equals(bucket));
-    }
 }

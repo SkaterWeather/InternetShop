@@ -5,7 +5,9 @@ import internetshop.dao.ImagineDateBase;
 import internetshop.dao.OrderDao;
 import internetshop.model.Order;
 
+import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 @Dao
 public class OrderDaoImpl implements OrderDao {
@@ -37,7 +39,9 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
-    public void delete(Order order) {
-        ImagineDateBase.ordersList.removeIf(s -> s.equals(order));
+    public List<Order> getAllOrdersByUserId(Long userId) {
+        return ImagineDateBase.ordersList.stream()
+                .filter(s -> s.getUserId().equals(userId))
+                .collect(Collectors.toList());
     }
 }

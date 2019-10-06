@@ -2,6 +2,7 @@ package internetshop.controller;
 
 import internetshop.annotation.Inject;
 import internetshop.model.Order;
+import internetshop.service.OrderService;
 import internetshop.service.UserService;
 
 import java.io.IOException;
@@ -13,14 +14,13 @@ import javax.servlet.http.HttpServletResponse;
 
 public class GetPurchaseHistoryController extends HttpServlet {
     @Inject
-    private static UserService userService;
+    private static OrderService orderService;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        //TODO: delete
         Long userId = (Long) req.getSession(true).getAttribute("userId");
-        List<Order> history = userService.get(userId).getPurchaseHistory();
+        List<Order> history = orderService.getAllOrdersByUserId(userId);
         req.setAttribute("history", history);
         req.getRequestDispatcher("WEB-INF/view/purchase-history.jsp").forward(req, resp);
     }

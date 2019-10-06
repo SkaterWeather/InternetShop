@@ -1,16 +1,21 @@
 package internetshop.model;
 
-import internetshop.Generator;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class Bucket {
-    private final Long id;
+    private Long id;
+    private String property;
     private List<Item> items;
 
+    public Bucket(Long id, String property, List<Item> items) {
+        this.id = id;
+        this.property = property;
+        this.items = items;
+    }
+
     public Bucket() {
-        this.id = Generator.genBucketId();
+        this.property = "DEFAULT";
         this.items = new ArrayList<>();
     }
 
@@ -24,6 +29,18 @@ public class Bucket {
 
     public Long getId() {
         return this.id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getProperty() {
+        return property;
+    }
+
+    public void setProperty(String property) {
+        this.property = property;
     }
 
     public List<Item> getItems() {
