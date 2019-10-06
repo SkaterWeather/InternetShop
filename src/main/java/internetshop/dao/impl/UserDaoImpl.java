@@ -20,13 +20,10 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User login(String login, String password) throws AuthenticationException{
+    public User getByLogin(String login){
         Optional<User> user = ImagineDateBase.usersList.stream()
                 .filter(s -> s.getLogin().equals(login))
                 .findFirst();
-        if (user.isEmpty() || !user.get().getPassword().equals(password)) {
-            throw new AuthenticationException("Incorrect password");
-        }
         return user.get();
     }
 

@@ -3,9 +3,9 @@ package internetshop.controller;
 import internetshop.annotation.Inject;
 import internetshop.model.User;
 import internetshop.service.UserService;
+import internetshop.util.HashUtil;
 import org.apache.log4j.Logger;
 
-import javax.naming.AuthenticationException;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
@@ -30,8 +30,10 @@ public class LoginController extends HttpServlet {
             throws ServletException, IOException {
         String login = req.getParameter("login");
         String password = req.getParameter("password");
-        try {
-            User user = userService.login(login, password);
+
+        User user = userService.getByLogin(login);
+        byte[] salt = user.getSalt();
+        if (HashUtil.hashPassword(password, salt).equals(user.getPassword())) {
             Cookie cookie = new Cookie("mate", user.getToken());
             resp.addCookie(cookie);
             resp.sendRedirect(req.getContextPath() + "/index");
@@ -40,7 +42,7 @@ public class LoginController extends HttpServlet {
             HttpSession session = req.getSession(true);
             session.setAttribute("userId", user.getId());
             logger.info("New session started under userId: " + user.getId());
-        } catch (AuthenticationException e) {
+        } else {
             req.setAttribute("errorMsg", "Incorrect login or password, please try again!");
             req.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(req, resp);
         }

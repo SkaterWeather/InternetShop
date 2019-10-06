@@ -1,6 +1,8 @@
 package internetshop.model;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
 
 public class User {
     private Long id;
@@ -10,10 +12,11 @@ public class User {
     private String surname;
     private String login;
     private String password;
+    private byte[] salt;
     private Set<Role> roles;
 
     public User(Long id, Long bucketId, String token,
-                String name, String surname, String login, String password) {
+                String name, String surname, String login, String password, byte[] salt) {
         this.id = id;
         this.bucketId = bucketId;
         this.token = token;
@@ -21,15 +24,17 @@ public class User {
         this.surname = surname;
         this.login = login;
         this.password = password;
+        this.salt = salt;
     }
 
-    public User(String login, String password, String name, String surname, Long bucketId) {
+    public User(String login, String password, byte[] salt, String name, String surname, Long bucketId) {
         this.bucketId = bucketId;
         this.token = UUID.randomUUID().toString();
         this.name = name;
         this.surname = surname;
         this.login = login;
         this.password = password;
+        this.salt = salt;
         this.roles = new HashSet<>();
         addRole(new Role(1L, Role.RoleName.USER));
     }
@@ -88,6 +93,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public byte[] getSalt() {
+        return salt;
+    }
+
+    public void setSalt(byte[] salt) {
+        this.salt = salt;
     }
 
     public Set<Role> getRoles() {

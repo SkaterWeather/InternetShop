@@ -33,8 +33,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User login(String login, String password) throws AuthenticationException {
-        User user = userDao.login(login, password);
+    public User getByLogin(String login) {
+        User user = userDao.getByLogin(login);
         user.setRoles(roleDao.getRolesByUserId(user.getId()));
         return user;
     }
