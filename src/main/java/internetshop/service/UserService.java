@@ -2,7 +2,6 @@ package internetshop.service;
 
 import internetshop.model.User;
 
-import javax.naming.AuthenticationException;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,7 +14,7 @@ public interface UserService {
 
     void delete(Long id);
 
-    User login(String login, String password) throws AuthenticationException;
+    User getByLogin(String login);
 
     List<User> getAll();
 

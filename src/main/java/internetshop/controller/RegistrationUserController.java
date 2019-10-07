@@ -5,6 +5,7 @@ import internetshop.model.Bucket;
 import internetshop.model.User;
 import internetshop.service.BucketService;
 import internetshop.service.UserService;
+import internetshop.util.HashUtil;
 import org.apache.log4j.Logger;
 
 import java.io.IOException;
@@ -32,8 +33,12 @@ public class RegistrationUserController extends HttpServlet {
         Bucket newBucket = new Bucket();
         newBucket = bucketService.create(newBucket);
         logger.info("Created empty user bucket");
+
+        byte[] salt = HashUtil.getSalt();
+        String hashedPassword = HashUtil.hashPassword(req.getParameter("password"), salt);
         User newUser = new User(req.getParameter("login"),
-                req.getParameter("password"),
+                hashedPassword,
+                salt,
                 req.getParameter("name"),
                 req.getParameter("surname"),
                 newBucket.getId());
