@@ -45,7 +45,7 @@
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <version>42.2.8</version>
-            <type>bundle</type>
+
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
