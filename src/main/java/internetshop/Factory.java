@@ -5,6 +5,7 @@ import internetshop.dao.ItemDao;
 import internetshop.dao.OrderDao;
 import internetshop.dao.RoleDao;
 import internetshop.dao.UserDao;
+import internetshop.dao.hibernate.ItemDaoHibernateImpl;
 import internetshop.dao.jdbc.BucketDaoJdbcImpl;
 import internetshop.dao.jdbc.ItemDaoJdbcImpl;
 import internetshop.dao.jdbc.OrderDaoJdbcImpl;
@@ -36,7 +37,7 @@ public class Factory {
                     "1111");
             logger.info("DataBase connection success.");
         } catch (SQLException e) {
-            logger.error("DataBase connection failure.");
+            logger.error("DataBase connection failure: " + e);
         }
     }
 
@@ -52,7 +53,7 @@ public class Factory {
 
     public static ItemDao getItemDao() {
         if (itemDaoInstance == null) {
-            itemDaoInstance = new ItemDaoJdbcImpl(connection);
+            itemDaoInstance = new ItemDaoHibernateImpl();
         }
         return itemDaoInstance;
     }
