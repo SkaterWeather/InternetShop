@@ -45,7 +45,6 @@
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <version>42.2.8</version>
-
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
@@ -79,6 +78,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
+                <version>3.2.3</version>
                 <configuration>
                     <webXml>src/main/webapp/WEB-INF/web.xml</webXml>
                 </configuration>

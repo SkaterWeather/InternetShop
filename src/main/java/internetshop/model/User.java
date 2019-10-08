@@ -27,7 +27,8 @@ public class User {
         this.salt = salt;
     }
 
-    public User(String login, String password, byte[] salt, String name, String surname, Long bucketId) {
+    public User(String login, String password, byte[] salt,
+                String name, String surname, Long bucketId) {
         this.bucketId = bucketId;
         this.token = UUID.randomUUID().toString();
         this.name = name;

@@ -4,7 +4,6 @@ import internetshop.annotation.Dao;
 import internetshop.dao.OrderDao;
 import internetshop.model.Item;
 import internetshop.model.Order;
-import org.apache.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,6 +12,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.log4j.Logger;
 
 @Dao
 public class OrderDaoJdbcImpl extends AbstractDao<Order> implements OrderDao {
@@ -51,13 +51,13 @@ public class OrderDaoJdbcImpl extends AbstractDao<Order> implements OrderDao {
 
     @Override
     public Order get(Long id) {
-        String query = "SELECT orders.user_id, items.id, items.name, items.price " +
-                "FROM orders " +
-                "INNER JOIN orders_items " +
-                "ON orders.id = orders_items.order_id " +
-                "INNER JOIN items " +
-                "ON items.id = orders_items.item_id " +
-                "WHERE orders.id = ?; ";
+        String query = "SELECT orders.user_id, items.id, items.name, items.price "
+                + "FROM orders "
+                + "INNER JOIN orders_items "
+                + "ON orders.id = orders_items.order_id "
+                + "INNER JOIN items "
+                + "ON items.id = orders_items.item_id "
+                + "WHERE orders.id = ?;";
 
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setLong(1, id);
@@ -80,12 +80,12 @@ public class OrderDaoJdbcImpl extends AbstractDao<Order> implements OrderDao {
 
     @Override
     public Order update(Order order) {
-        String query = "UPDATE orders SET user_id=?, total_price=? WHERE id=?;" +
-                "DELETE FROM orders_items WHERE order_id=?;";
+        String query = "UPDATE orders SET user_id=?, total_price=? WHERE id=?;"
+                + "DELETE FROM orders_items WHERE order_id=?;";
         String secondQuery = "INSERT INTO orders_items (order_id, item_id) VALUES (?, ?);";
 
         try (PreparedStatement statement = connection.prepareStatement(query);
-             PreparedStatement secondStatement = connection.prepareStatement(secondQuery)) {
+                PreparedStatement secondStatement = connection.prepareStatement(secondQuery)) {
             statement.setLong(1, order.getUserId());
             statement.setDouble(2, order.getTotalPrice());
             statement.setLong(3, order.getId());
@@ -105,8 +105,8 @@ public class OrderDaoJdbcImpl extends AbstractDao<Order> implements OrderDao {
 
     @Override
     public void delete(Long id) {
-        String query = "DELETE FROM orders_items WHERE order_id=?;" +
-                "DELETE FROM orders WHERE id=?;";
+        String query = "DELETE FROM orders_items WHERE order_id=?;"
+                + "DELETE FROM orders WHERE id=?;";
 
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setLong(1, id);
@@ -138,10 +138,10 @@ public class OrderDaoJdbcImpl extends AbstractDao<Order> implements OrderDao {
     }
 
     private List<Item> getItemsByOrderId(Long orderId) {
-        String query = "SELECT * FROM items " +
-                "INNER JOIN orders_items " +
-                "ON orders_items.item_id = items.id " +
-                "WHERE order_id=?;";
+        String query = "SELECT * FROM items "
+                + "INNER JOIN orders_items "
+                + "ON orders_items.item_id = items.id "
+                + "WHERE order_id=?;";
         List<Item> resultItems = new ArrayList<>();
 
         try (PreparedStatement statement = connection.prepareStatement(query)) {

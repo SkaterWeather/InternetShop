@@ -3,7 +3,6 @@ package internetshop.dao.jdbc;
 import internetshop.annotation.Dao;
 import internetshop.dao.ItemDao;
 import internetshop.model.Item;
-import org.apache.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,6 +11,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.log4j.Logger;
 
 @Dao
 public class ItemDaoJdbcImpl extends AbstractDao<Item> implements ItemDao {
@@ -69,10 +69,10 @@ public class ItemDaoJdbcImpl extends AbstractDao<Item> implements ItemDao {
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
-                Long item_id = resultSet.getLong("id");
+                Long itemId = resultSet.getLong("id");
                 String name = resultSet.getString("name");
                 Double price = resultSet.getDouble("price");
-                resultList.add(new Item(item_id, name, price));
+                resultList.add(new Item(itemId, name, price));
             }
         } catch (SQLException e) {
             logger.error("Can't get all elements from table 'items'");

@@ -4,7 +4,6 @@ import internetshop.annotation.Dao;
 import internetshop.dao.UserDao;
 import internetshop.model.Role;
 import internetshop.model.User;
-import org.apache.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,6 +12,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.log4j.Logger;
 
 @Dao
 public class UserDaoJdbcImpl extends AbstractDao<User> implements UserDao {
@@ -24,8 +24,8 @@ public class UserDaoJdbcImpl extends AbstractDao<User> implements UserDao {
 
     @Override
     public User create(User user) {
-        String query = "INSERT INTO users (login, password, name, surname, token, bucket_id, salt) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?);";
+        String query = "INSERT INTO users (login, password, name, surname, token, bucket_id, salt)"
+                + " VALUES (?, ?, ?, ?, ?, ?, ?);";
         String secondQuery = "INSERT INTO users_roles (user_id, role_id) VALUES (?, ?);";
 
         try (PreparedStatement statement =
@@ -82,13 +82,13 @@ public class UserDaoJdbcImpl extends AbstractDao<User> implements UserDao {
 
     @Override
     public User update(User user) {
-        String query = "UPDATE users " +
-                "SET login=?, password=?, name=?, surname=?, token=?, bucket_id=?, salt=? WHERE id=?; " +
-                "DELETE FROM users_roles WHERE user_id=?;";
+        String query = "UPDATE users SET login=?, password=?, name=?,"
+                + " surname=?, token=?, bucket_id=?, salt=? WHERE id=?; "
+                + "DELETE FROM users_roles WHERE user_id=?;";
         String secondQuery = "INSERT INTO users_roles (user_id, role_id) VALUES (?, ?);";
 
         try (PreparedStatement statement = connection.prepareStatement(query);
-             PreparedStatement secondStatement = connection.prepareStatement(secondQuery)) {
+                PreparedStatement secondStatement = connection.prepareStatement(secondQuery)) {
             statement.setString(1, user.getLogin());
             statement.setString(2, user.getPassword());
             statement.setString(3, user.getName());
@@ -113,8 +113,8 @@ public class UserDaoJdbcImpl extends AbstractDao<User> implements UserDao {
 
     @Override
     public void delete(Long id) {
-        String query = "DELETE FROM users_roles WHERE user_id=?;" +
-                "DELETE FROM users WHERE id=?;";
+        String query = "DELETE FROM users_roles WHERE user_id=?;"
+                + "DELETE FROM users WHERE id=?;";
 
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setLong(1, id);

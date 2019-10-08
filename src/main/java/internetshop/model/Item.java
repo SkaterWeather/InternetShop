@@ -12,7 +12,7 @@ import javax.persistence.Table;
 public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(columnDefinition="serial")
+    @Column(columnDefinition = "serial")
     private Long id;
     private String name;
     private Double price;
@@ -29,7 +29,6 @@ public class Item {
     }
 
     public Item() {
-
     }
 
     public Long getId() {

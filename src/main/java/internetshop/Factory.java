@@ -7,7 +7,6 @@ import internetshop.dao.RoleDao;
 import internetshop.dao.UserDao;
 import internetshop.dao.hibernate.ItemDaoHibernateImpl;
 import internetshop.dao.jdbc.BucketDaoJdbcImpl;
-import internetshop.dao.jdbc.ItemDaoJdbcImpl;
 import internetshop.dao.jdbc.OrderDaoJdbcImpl;
 import internetshop.dao.jdbc.RoleDaoJdbcImpl;
 import internetshop.dao.jdbc.UserDaoJdbcImpl;
@@ -19,11 +18,11 @@ import internetshop.service.impl.BucketServiceImpl;
 import internetshop.service.impl.ItemServiceImpl;
 import internetshop.service.impl.OrderServiceImpl;
 import internetshop.service.impl.UserServiceImpl;
-import org.apache.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import org.apache.log4j.Logger;
 
 public class Factory {
     private static final Logger logger = Logger.getLogger(Factory.class);
@@ -31,7 +30,7 @@ public class Factory {
 
     static {
         try {
-             connection = DriverManager.getConnection(
+            connection = DriverManager.getConnection(
                     "jdbc:postgresql://localhost:5432/internet-shop-data",
                     "postgres",
                     "1111");

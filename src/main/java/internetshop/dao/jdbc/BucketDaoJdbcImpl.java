@@ -4,7 +4,6 @@ import internetshop.annotation.Dao;
 import internetshop.dao.BucketDao;
 import internetshop.model.Bucket;
 import internetshop.model.Item;
-import org.apache.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,6 +12,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.log4j.Logger;
 
 @Dao
 public class BucketDaoJdbcImpl extends AbstractDao<Bucket> implements BucketDao {
@@ -43,13 +43,13 @@ public class BucketDaoJdbcImpl extends AbstractDao<Bucket> implements BucketDao 
 
     @Override
     public Bucket get(Long id) {
-        String query = "SELECT buckets.property, items.id, items.name, items.price " +
-                "FROM buckets " +
-                "INNER JOIN buckets_items " +
-                "ON buckets.id = buckets_items.bucket_id " +
-                "INNER JOIN items " +
-                "ON items.id = buckets_items.item_id " +
-                "WHERE buckets.id = ?; ";
+        String query = "SELECT buckets.property, items.id, items.name, items.price "
+                + "FROM buckets "
+                + "INNER JOIN buckets_items "
+                + "ON buckets.id = buckets_items.bucket_id "
+                + "INNER JOIN items "
+                + "ON items.id = buckets_items.item_id "
+                + "WHERE buckets.id = ?;";
 
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setLong(1, id);
@@ -72,12 +72,12 @@ public class BucketDaoJdbcImpl extends AbstractDao<Bucket> implements BucketDao 
 
     @Override
     public Bucket update(Bucket bucket) {
-        String query = "UPDATE buckets SET property=? WHERE id=?;" +
-                "DELETE FROM buckets_items WHERE bucket_id=?;";
+        String query = "UPDATE buckets SET property=? WHERE id=?;"
+                + "DELETE FROM buckets_items WHERE bucket_id=?;";
         String secondQuery = "INSERT INTO buckets_items (bucket_id, item_id) VALUES (?, ?);";
 
         try (PreparedStatement statement = connection.prepareStatement(query);
-             PreparedStatement secondStatement = connection.prepareStatement(secondQuery)) {
+                PreparedStatement secondStatement = connection.prepareStatement(secondQuery)) {
             statement.setString(1, bucket.getProperty());
             statement.setLong(2, bucket.getId());
             statement.setLong(3, bucket.getId());
@@ -96,8 +96,8 @@ public class BucketDaoJdbcImpl extends AbstractDao<Bucket> implements BucketDao 
 
     @Override
     public void delete(Long id) {
-        String query = "DELETE FROM buckets_items WHERE bucket_id=?;" +
-                "DELETE FROM buckets WHERE id=?;";
+        String query = "DELETE FROM buckets_items WHERE bucket_id=?;"
+                + "DELETE FROM buckets WHERE id=?;";
 
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setLong(1, id);

@@ -4,10 +4,10 @@ import internetshop.annotation.Dao;
 import internetshop.dao.ItemDao;
 import internetshop.model.Item;
 import internetshop.util.HibernateUtil;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 
 import java.util.List;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 @Dao
 public class ItemDaoHibernateImpl implements ItemDao {
@@ -38,7 +38,9 @@ public class ItemDaoHibernateImpl implements ItemDao {
     @Override
     public List<Item> getAll() {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            return session.createSQLQuery("SELECT * FROM items;").addEntity(Item.class).getResultList();
+            return session.createSQLQuery("SELECT * FROM items;")
+                    .addEntity(Item.class)
+                    .getResultList();
         }
     }
 

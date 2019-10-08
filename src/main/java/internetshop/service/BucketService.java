@@ -2,8 +2,6 @@ package internetshop.service;
 
 import internetshop.model.Bucket;
 
-import java.util.List;
-
 public interface BucketService {
     Bucket create(Bucket bucket);
 

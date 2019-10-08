@@ -5,7 +5,6 @@ import internetshop.dao.ImagineDateBase;
 import internetshop.dao.UserDao;
 import internetshop.model.User;
 
-import javax.naming.AuthenticationException;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -20,7 +19,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User getByLogin(String login){
+    public User getByLogin(String login) {
         Optional<User> user = ImagineDateBase.usersList.stream()
                 .filter(s -> s.getLogin().equals(login))
                 .findFirst();
