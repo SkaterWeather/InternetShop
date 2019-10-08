@@ -9,9 +9,9 @@ public interface ItemDao {
 
     Item get(Long id);
 
-    List<Item> getAll();
-
     Item update(Item item);
 
     void delete(Long id);
+
+    List<Item> getAll();
 }

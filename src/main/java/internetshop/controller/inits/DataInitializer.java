@@ -5,10 +5,10 @@ import internetshop.service.BucketService;
 import internetshop.service.ItemService;
 import internetshop.service.OrderService;
 import internetshop.service.UserService;
-import org.apache.log4j.Logger;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
+import org.apache.log4j.Logger;
 
 public class DataInitializer implements ServletContextListener {
     private static final Logger logger = Logger.getLogger(DataInitializer.class);

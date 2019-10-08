@@ -2,16 +2,17 @@ package internetshop.controller;
 
 import internetshop.annotation.Inject;
 import internetshop.service.OrderService;
-import org.apache.log4j.Logger;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.log4j.Logger;
 
 public class DeleteFromPurchaseHistoryController extends HttpServlet {
-    private static final Logger logger = Logger.getLogger(DeleteFromPurchaseHistoryController.class);
+    private static final Logger logger
+            = Logger.getLogger(DeleteFromPurchaseHistoryController.class);
     @Inject
     private static OrderService orderService;
 

@@ -1,26 +1,26 @@
 package internetshop.controller.filter;
 
+import static internetshop.model.Role.RoleName.ADMIN;
+import static internetshop.model.Role.RoleName.USER;
+
 import internetshop.annotation.Inject;
 import internetshop.model.Role;
 import internetshop.model.User;
 import internetshop.service.UserService;
 
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 import javax.servlet.Filter;
-import javax.servlet.FilterConfig;
 import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-
-import static internetshop.model.Role.RoleName.ADMIN;
-import static internetshop.model.Role.RoleName.USER;
 
 public class AuthorizationFilter implements Filter {
     @Inject

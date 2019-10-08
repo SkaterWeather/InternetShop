@@ -1,7 +1,5 @@
 package internetshop.annotation;
 
-import org.apache.log4j.Logger;
-
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;
@@ -9,6 +7,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
+import org.apache.log4j.Logger;
 
 public class Injector {
     private static final Logger logger = Logger.getLogger(Injector.class);

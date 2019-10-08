@@ -2,9 +2,7 @@ package internetshop.dao;
 
 import internetshop.model.User;
 
-import javax.naming.AuthenticationException;
 import java.util.List;
-import java.util.Optional;
 
 public interface UserDao {
     User create(User user);

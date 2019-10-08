@@ -1,10 +1,10 @@
 package internetshop.util;
 
-import org.apache.log4j.Logger;
-
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+
+import org.apache.log4j.Logger;
 
 public class HashUtil {
     private static Logger logger = Logger.getLogger(HashUtil.class);
@@ -17,7 +17,7 @@ public class HashUtil {
             for (byte b : messageDigest.digest(password.getBytes())) {
                 hashedPassword.append(String.format("%02x", b));
             }
-        } catch(NoSuchAlgorithmException e) {
+        } catch (NoSuchAlgorithmException e) {
             logger.error(e);
         }
         return hashedPassword.toString();

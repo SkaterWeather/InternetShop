@@ -1,8 +1,6 @@
 package internetshop.controller;
 
 import internetshop.annotation.Inject;
-import internetshop.controller.inits.DataInitializer;
-import internetshop.model.Item;
 import internetshop.service.BucketService;
 import internetshop.service.UserService;
 

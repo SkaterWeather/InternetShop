@@ -3,7 +3,6 @@ package internetshop.dao.jdbc;
 import internetshop.annotation.Dao;
 import internetshop.dao.RoleDao;
 import internetshop.model.Role;
-import org.apache.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.Set;
+import org.apache.log4j.Logger;
 
 @Dao
 public class RoleDaoJdbcImpl extends AbstractDao<Role> implements RoleDao {
@@ -22,10 +22,10 @@ public class RoleDaoJdbcImpl extends AbstractDao<Role> implements RoleDao {
 
     @Override
     public Set<Role> getRolesByUserId(Long userId) {
-        String query = "SELECT * FROM roles " +
-                "INNER JOIN users_roles " +
-                "ON users_roles.role_id = roles.id " +
-                "WHERE user_id=?;";
+        String query = "SELECT * FROM roles "
+                + "INNER JOIN users_roles "
+                + "ON users_roles.role_id = roles.id "
+                + "WHERE user_id=?;";
         Set<Role> resultRoles = new HashSet<>();
 
         try (PreparedStatement statement = connection.prepareStatement(query)) {

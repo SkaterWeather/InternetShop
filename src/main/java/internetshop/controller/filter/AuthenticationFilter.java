@@ -3,19 +3,19 @@ package internetshop.controller.filter;
 import internetshop.annotation.Inject;
 import internetshop.model.User;
 import internetshop.service.UserService;
-import org.apache.log4j.Logger;
 
+import java.io.IOException;
+import java.util.Optional;
 import javax.servlet.Filter;
-import javax.servlet.FilterConfig;
 import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.Optional;
+import org.apache.log4j.Logger;
 
 public class AuthenticationFilter implements Filter {
     private static final Logger logger = Logger.getLogger(AuthenticationFilter.class);

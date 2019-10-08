@@ -7,7 +7,6 @@ import internetshop.dao.UserDao;
 import internetshop.model.User;
 import internetshop.service.UserService;
 
-import javax.naming.AuthenticationException;
 import java.util.List;
 import java.util.Optional;
 
