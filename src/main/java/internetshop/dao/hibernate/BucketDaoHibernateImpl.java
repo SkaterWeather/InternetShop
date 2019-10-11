@@ -1,60 +1,52 @@
 package internetshop.dao.hibernate;
 
 import internetshop.annotation.Dao;
-import internetshop.dao.ItemDao;
-import internetshop.model.Item;
+import internetshop.dao.BucketDao;
+import internetshop.model.Bucket;
 import internetshop.util.HibernateUtil;
 
-import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 @Dao
-public class ItemDaoHibernateImpl implements ItemDao {
+public class BucketDaoHibernateImpl implements BucketDao {
     @Override
-    public Item create(Item item) {
+    public Bucket create(Bucket bucket) {
         Transaction transaction = null;
-        Long itemId = null;
+        Long bucketId = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
-            itemId = (Long) session.save(item);
+            bucketId = (Long) session.save(bucket);
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();
             }
         }
-        item.setId(itemId);
-        return item;
+        bucket.setId(bucketId);
+        return bucket;
     }
 
     @Override
-    public Item get(Long id) {
+    public Bucket get(Long id) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            return session.get(Item.class, id);
+            return session.get(Bucket.class, id);
         }
     }
 
     @Override
-    public List<Item> getAll() {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            return session.createQuery("FROM Item").list();
-        }
-    }
-
-    @Override
-    public Item update(Item item) {
+    public Bucket update(Bucket bucket) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
-            session.update(item);
+            session.update(bucket);
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();
             }
         }
-        return item;
+        return bucket;
     }
 
     @Override
@@ -62,8 +54,8 @@ public class ItemDaoHibernateImpl implements ItemDao {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
-            Item item = session.get(Item.class, id);
-            session.delete(item);
+            Bucket bucket = session.get(Bucket.class, id);
+            session.delete(bucket);
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {

@@ -2,7 +2,6 @@ package internetshop.service.impl;
 
 import internetshop.annotation.Inject;
 import internetshop.annotation.Service;
-import internetshop.dao.RoleDao;
 import internetshop.dao.UserDao;
 import internetshop.model.User;
 import internetshop.service.UserService;
@@ -14,16 +13,10 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
     @Inject
     private static UserDao userDao;
-    @Inject
-    private static RoleDao roleDao;
 
     @Override
     public List<User> getAll() {
-        List<User> users = userDao.getAll();
-        for (User user : users) {
-            user.setRoles(roleDao.getRolesByUserId(user.getId()));
-        }
-        return users;
+        return userDao.getAll();
     }
 
     @Override
@@ -33,23 +26,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getByLogin(String login) {
-        User user = userDao.getByLogin(login);
-        user.setRoles(roleDao.getRolesByUserId(user.getId()));
-        return user;
+        return userDao.getByLogin(login);
     }
 
     @Override
     public User get(Long id) {
-        User user = userDao.get(id);
-        user.setRoles(roleDao.getRolesByUserId(id));
-        return user;
+        return userDao.get(id);
     }
 
     @Override
     public Optional<User> getByToken(String token) {
-        User user = userDao.getByToken(token);
-        user.setRoles(roleDao.getRolesByUserId(user.getId()));
-        return Optional.of(user);
+        return Optional.of(userDao.getByToken(token));
     }
 
     @Override
