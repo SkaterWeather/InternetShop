@@ -41,7 +41,7 @@ public class RegistrationUserController extends HttpServlet {
                 salt,
                 req.getParameter("name"),
                 req.getParameter("surname"),
-                newBucket.getId());
+                newBucket);
         userService.create(newUser);
         logger.info("User added: " + newUser);
 

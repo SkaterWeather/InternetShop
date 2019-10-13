@@ -3,9 +3,28 @@ package internetshop.model;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 
+@Entity
+@Table(name = "users")
 public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(columnDefinition = "serial")
     private Long id;
+    @Transient
     private Long bucketId;
     private String token;
     private String name;
@@ -13,6 +32,13 @@ public class User {
     private String login;
     private String password;
     private byte[] salt;
+    @OneToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
+    @JoinColumn(name = "bucket_id", referencedColumnName = "id", columnDefinition = "int4")
+    private Bucket bucket;
+    @ManyToMany(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
+    @JoinTable(name = "users_roles",
+            joinColumns = @JoinColumn(name = "user_id", columnDefinition = "int4"),
+            inverseJoinColumns = @JoinColumn(name = "role_id", columnDefinition = "int4"))
     private Set<Role> roles;
 
     public User(Long id, Long bucketId, String token,
@@ -28,8 +54,8 @@ public class User {
     }
 
     public User(String login, String password, byte[] salt,
-                String name, String surname, Long bucketId) {
-        this.bucketId = bucketId;
+                String name, String surname, Bucket bucket) {
+        this.bucket = bucket;
         this.token = UUID.randomUUID().toString();
         this.name = name;
         this.surname = surname;
@@ -38,6 +64,9 @@ public class User {
         this.salt = salt;
         this.roles = new HashSet<>();
         addRole(new Role(1L, Role.RoleName.USER));
+    }
+
+    public User() {
     }
 
     public void setId(Long id) {
@@ -52,6 +81,7 @@ public class User {
         this.bucketId = bucketId;
     }
 
+    @Deprecated
     public Long getBucketId() {
         return bucketId;
     }
@@ -102,6 +132,14 @@ public class User {
 
     public void setSalt(byte[] salt) {
         this.salt = salt;
+    }
+
+    public Bucket getBucket() {
+        return bucket;
+    }
+
+    public void setBucket(Bucket bucket) {
+        this.bucket = bucket;
     }
 
     public Set<Role> getRoles() {

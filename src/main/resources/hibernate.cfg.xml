@@ -17,5 +17,8 @@
         <property name="hibernate.hbm2ddl.auto">validate</property>
 
         <mapping class="internetshop.model.Item"/>
+        <mapping class="internetshop.model.Role"/>
+        <mapping class="internetshop.model.User"/>
+        <mapping class="internetshop.model.Bucket"/>
     </session-factory>
 </hibernate-configuration>
