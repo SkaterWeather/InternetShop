@@ -4,6 +4,7 @@ import internetshop.annotation.Dao;
 import internetshop.dao.OrderDao;
 import internetshop.model.Item;
 import internetshop.model.Order;
+import internetshop.model.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
