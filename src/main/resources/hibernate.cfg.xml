@@ -20,5 +20,6 @@
         <mapping class="internetshop.model.Role"/>
         <mapping class="internetshop.model.User"/>
         <mapping class="internetshop.model.Bucket"/>
+        <mapping class="internetshop.model.Order"/>
     </session-factory>
 </hibernate-configuration>

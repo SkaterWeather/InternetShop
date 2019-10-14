@@ -22,8 +22,8 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Order completeOrder(Long userId) {
-        Bucket bucket = bucketDao.get(userdao.get(userId).getBucketId());
-        Order order = new Order(userId, bucket.getItems());
+        Bucket bucket = userdao.get(userId).getBucket();
+        Order order = new Order(userdao.get(userId), bucket.getItems());
         orderDao.create(order);
         bucket.clearItems();
         bucketDao.update(bucket);
