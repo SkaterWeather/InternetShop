@@ -88,11 +88,8 @@ public class OrderDaoHibernateImpl implements OrderDao {
     @Override
     public List<Order> getAllOrdersByUserId(Long userId) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            Query query = session.createQuery("FROM User WHERE id=:userId");
+            Query query = session.createQuery("FROM Order WHERE user.id=:userId");
             query.setParameter("userId", userId);
-            User user = (User) query.getSingleResult();
-            query = session.createQuery("FROM Order WHERE user=:user");
-            query.setParameter("user", user);
             return query.getResultList();
         }
     }
