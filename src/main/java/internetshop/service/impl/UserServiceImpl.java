@@ -11,23 +11,9 @@ import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
+
     @Inject
     private static UserDao userDao;
-
-    @Override
-    public List<User> getAll() {
-        return userDao.getAll();
-    }
-
-    @Override
-    public User create(User user) {
-        return userDao.create(user);
-    }
-
-    @Override
-    public User getByLogin(String login) {
-        return userDao.getByLogin(login);
-    }
 
     @Override
     public User get(Long id) {
@@ -47,5 +33,20 @@ public class UserServiceImpl implements UserService {
     @Override
     public void delete(Long id) {
         userDao.delete(id);
+    }
+    
+    @Override
+    public List<User> getAll() {
+        return userDao.getAll();
+    }
+
+    @Override
+    public User create(User user) {
+        return userDao.create(user);
+    }
+
+    @Override
+    public User getByLogin(String login) {
+        return userDao.getByLogin(login);
     }
 }

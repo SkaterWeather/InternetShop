@@ -14,7 +14,9 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(columnDefinition = "serial")
     private Long id;
+
     private String name;
+
     private Double price;
 
     public Item(Long id, String name, Double price) {
@@ -57,6 +59,6 @@ public class Item {
 
     @Override
     public String toString() {
-        return "[" + this.id + "_" + this.name + "_" + this.price + "]";
+        return this.id + "_" + this.name + "_" + this.price;
     }
 }

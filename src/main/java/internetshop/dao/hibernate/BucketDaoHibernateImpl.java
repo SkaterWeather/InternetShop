@@ -75,8 +75,7 @@ public class BucketDaoHibernateImpl implements BucketDao {
             if (transaction != null) {
                 transaction.rollback();
             }
-        }
-        finally {
+        } finally {
             if (session != null) {
                 session.close();
             }

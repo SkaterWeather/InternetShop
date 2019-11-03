@@ -4,7 +4,6 @@ import internetshop.annotation.Dao;
 import internetshop.dao.OrderDao;
 import internetshop.model.Item;
 import internetshop.model.Order;
-import internetshop.model.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,7 +15,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 @Dao
-public class OrderDaoJdbcImpl extends AbstractDao<Order> implements OrderDao {
+public class OrderDaoJdbcImpl extends AbstractDao implements OrderDao {
     private static final Logger logger = Logger.getLogger(OrderDaoJdbcImpl.class);
 
     public OrderDaoJdbcImpl(Connection connection) {

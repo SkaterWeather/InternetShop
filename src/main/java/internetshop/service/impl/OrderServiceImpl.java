@@ -13,27 +13,15 @@ import java.util.List;
 
 @Service
 public class OrderServiceImpl implements OrderService {
+
     @Inject
     private static OrderDao orderDao;
+
     @Inject
     private static UserDao userdao;
+
     @Inject
     private static BucketDao bucketDao;
-
-    @Override
-    public Order completeOrder(Long userId) {
-        Bucket bucket = userdao.get(userId).getBucket();
-        Order order = new Order(userdao.get(userId), bucket.getItems());
-        orderDao.create(order);
-        bucket.clearItems();
-        bucketDao.update(bucket);
-        return order;
-    }
-
-    @Override
-    public List<Order> getAllOrdersByUserId(Long userId) {
-        return orderDao.getAllOrdersByUserId(userId);
-    }
 
     @Override
     public Order create(Order order) {
@@ -53,5 +41,20 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void delete(Long id) {
         orderDao.delete(id);
+    }
+
+    @Override
+    public Order completeOrder(Long userId) {
+        Bucket bucket = userdao.get(userId).getBucket();
+        Order order = new Order(userdao.get(userId), bucket.getItems());
+        orderDao.create(order);
+        bucket.clearItems();
+        bucketDao.update(bucket);
+        return order;
+    }
+
+    @Override
+    public List<Order> getAllOrdersByUserId(Long userId) {
+        return orderDao.getAllOrdersByUserId(userId);
     }
 }
