@@ -15,6 +15,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
@@ -41,11 +42,11 @@ public class User {
 
     private byte[] salt;
 
-    @OneToOne(cascade = CascadeType.DETACH)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "bucket_id", referencedColumnName = "id", columnDefinition = "int4")
     private Bucket bucket;
 
-    @ManyToMany(cascade = CascadeType.DETACH)
+    @ManyToMany
     @LazyCollection(LazyCollectionOption.FALSE)
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id", columnDefinition = "int4"),

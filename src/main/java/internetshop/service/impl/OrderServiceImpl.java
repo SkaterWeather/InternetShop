@@ -18,7 +18,7 @@ public class OrderServiceImpl implements OrderService {
     private static OrderDao orderDao;
 
     @Inject
-    private static UserDao userdao;
+    private static UserDao userDao;
 
     @Inject
     private static BucketDao bucketDao;
@@ -40,13 +40,16 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void delete(Long id) {
+        Order order = orderDao.get(id);
+        order.clearItems();
+        orderDao.update(order);
         orderDao.delete(id);
     }
 
     @Override
     public Order completeOrder(Long userId) {
-        Bucket bucket = userdao.get(userId).getBucket();
-        Order order = new Order(userdao.get(userId), bucket.getItems());
+        Bucket bucket = userDao.get(userId).getBucket();
+        Order order = new Order(userDao.get(userId), bucket.getItems());
         orderDao.create(order);
         bucket.clearItems();
         bucketDao.update(bucket);

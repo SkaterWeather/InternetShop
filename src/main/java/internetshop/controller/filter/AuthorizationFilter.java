@@ -25,6 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 public class AuthorizationFilter implements Filter {
     @Inject
     private static UserService userService;
+
     private Map<String, Role.RoleName> protectedUrls;
 
     @Override

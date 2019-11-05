@@ -103,6 +103,10 @@ public class Order {
         this.totalPrice = itemsList.stream().mapToDouble(Item::getPrice).sum();
     }
 
+    public void clearItems() {
+        this.itemsList.clear();
+    }
+
     @Override
     public String toString() {
         return this.id + "_userID:" + this.userId + "_" + this.totalPrice;
