@@ -19,6 +19,7 @@ import org.apache.log4j.Logger;
 
 public class AuthenticationFilter implements Filter {
     private static final Logger logger = Logger.getLogger(AuthenticationFilter.class);
+
     @Inject
     private static UserService userService;
 

@@ -13,7 +13,7 @@ import java.util.Set;
 import org.apache.log4j.Logger;
 
 @Dao
-public class RoleDaoJdbcImpl extends AbstractDao<Role> implements RoleDao {
+public class RoleDaoJdbcImpl extends AbstractDao implements RoleDao {
     private static final Logger logger = Logger.getLogger(RoleDaoJdbcImpl.class);
 
     public RoleDaoJdbcImpl(Connection connection) {

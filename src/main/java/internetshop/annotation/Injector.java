@@ -18,7 +18,7 @@ public class Injector {
         try {
             classes.addAll(getClasses(PROJECT_MAIN_PACKAGE));
         } catch (ClassNotFoundException | IOException e) {
-            logger.error("Error trying to get all classes from internetshop package.");
+            logger.error("Error trying to get all classes from package: " + PROJECT_MAIN_PACKAGE);
         }
     }
 

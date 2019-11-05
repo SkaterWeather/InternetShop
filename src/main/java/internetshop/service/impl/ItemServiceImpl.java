@@ -10,6 +10,7 @@ import java.util.List;
 
 @Service
 public class ItemServiceImpl implements ItemService {
+
     @Inject
     private static ItemDao itemDao;
 
@@ -24,11 +25,6 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public List<Item> getAll() {
-        return itemDao.getAll();
-    }
-
-    @Override
     public Item update(Item item) {
         return itemDao.update(item);
     }
@@ -36,5 +32,10 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public void delete(Long id) {
         itemDao.delete(id);
+    }
+
+    @Override
+    public List<Item> getAll() {
+        return itemDao.getAll();
     }
 }

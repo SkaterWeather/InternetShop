@@ -3,7 +3,6 @@ package internetshop.dao.hibernate;
 import internetshop.annotation.Dao;
 import internetshop.dao.OrderDao;
 import internetshop.model.Order;
-import internetshop.model.User;
 import internetshop.util.HibernateUtil;
 
 import java.util.List;

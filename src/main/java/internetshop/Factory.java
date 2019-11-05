@@ -9,7 +9,6 @@ import internetshop.dao.hibernate.BucketDaoHibernateImpl;
 import internetshop.dao.hibernate.ItemDaoHibernateImpl;
 import internetshop.dao.hibernate.OrderDaoHibernateImpl;
 import internetshop.dao.hibernate.UserDaoHibernateImpl;
-import internetshop.dao.jdbc.OrderDaoJdbcImpl;
 import internetshop.dao.jdbc.RoleDaoJdbcImpl;
 import internetshop.service.BucketService;
 import internetshop.service.ItemService;
@@ -29,12 +28,13 @@ public class Factory {
     private static final Logger logger = Logger.getLogger(Factory.class);
     private static Connection connection;
 
+    private static final String postgreUrl = "jdbc:postgresql://localhost:5432/internet-shop-data";
+    private static final String postgreUser = "postgres";
+    private static final String postgrePass = "1111";
+
     static {
         try {
-            connection = DriverManager.getConnection(
-                    "jdbc:postgresql://localhost:5432/internet-shop-data",
-                    "postgres",
-                    "1111");
+            connection = DriverManager.getConnection(postgreUrl, postgreUser, postgrePass);
             logger.info("DataBase connection success.");
         } catch (SQLException e) {
             logger.error("DataBase connection failure: " + e);

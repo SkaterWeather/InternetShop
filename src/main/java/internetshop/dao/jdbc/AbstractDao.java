@@ -2,7 +2,7 @@ package internetshop.dao.jdbc;
 
 import java.sql.Connection;
 
-public class AbstractDao<T> {
+public class AbstractDao {
     protected final Connection connection;
 
     public AbstractDao(Connection connection) {

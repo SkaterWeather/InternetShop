@@ -24,13 +24,17 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(columnDefinition = "serial")
     private Long id;
+
     @Transient
     private Long userId;
+
     @Column(name = "total_price")
     private Double totalPrice;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", referencedColumnName = "id", columnDefinition = "int4")
     private User user;
+
     @ManyToMany
     @LazyCollection(LazyCollectionOption.FALSE)
     @JoinTable(name = "orders_items",
@@ -97,5 +101,14 @@ public class Order {
 
     private void calculateTotalPrice() {
         this.totalPrice = itemsList.stream().mapToDouble(Item::getPrice).sum();
+    }
+
+    public void clearItems() {
+        this.itemsList.clear();
+    }
+
+    @Override
+    public String toString() {
+        return this.id + "_userID:" + this.userId + "_" + this.totalPrice;
     }
 }

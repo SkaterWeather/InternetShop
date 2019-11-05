@@ -6,7 +6,6 @@ import java.util.UUID;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,6 +16,9 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 @Entity
 @Table(name = "users")
 public class User {
@@ -24,18 +26,28 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(columnDefinition = "serial")
     private Long id;
+
     @Transient
     private Long bucketId;
+
     private String token;
+
     private String name;
+
     private String surname;
+
     private String login;
+
     private String password;
+
     private byte[] salt;
-    @OneToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
+
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "bucket_id", referencedColumnName = "id", columnDefinition = "int4")
     private Bucket bucket;
-    @ManyToMany(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
+
+    @ManyToMany
+    @LazyCollection(LazyCollectionOption.FALSE)
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id", columnDefinition = "int4"),
             inverseJoinColumns = @JoinColumn(name = "role_id", columnDefinition = "int4"))
@@ -156,6 +168,6 @@ public class User {
 
     @Override
     public String toString() {
-        return name + "_" + surname;
+        return this.name + "_" + this.surname;
     }
 }

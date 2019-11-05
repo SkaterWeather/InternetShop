@@ -45,6 +45,6 @@ public class RegistrationUserController extends HttpServlet {
         userService.create(newUser);
         logger.info("User added: " + newUser);
 
-        resp.sendRedirect(req.getContextPath() + "/index");
+        resp.sendRedirect(req.getContextPath() + "/login");
     }
 }
